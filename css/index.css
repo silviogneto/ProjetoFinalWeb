@@ -1,22 +1,74 @@
 /* arquivo de css da pagina principal do projeto */
 
+/* Imports */
+@import url("reset.css");
+
 body {
-	font: tahoma;
+    background: #F5F4EF;
+    /*color: #000305;*/
+    font-size: 85%; /* Base font size: 14px */
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    line-height: 1.429;
+    margin: 0;
+    padding: 0;
+    text-align: left;
 }
 
 /*
  * style do cabeçalho
  */ 
-header {
+#headerMenu {
 	display: block;
 	border: 1px solid black;
 	padding: 3em;
 }
 
-.menuHeader li {
+/* Main Nav */
+#headerMenu nav {
+	font-size: 1.2em;
+	line-height: 40px;
+	padding: 0;
+	border: 1px solid #000;
+}
+
+#headerMenu nav ul {
+	list-style: none;
+	border: 1px solid #F00;
+}
+#headerMenu nav li {
+	/*float: left; */
+	display: inline; 
+	margin: 0;
+}
+
+#headerMenu nav a:link, #headerMenu nav a:visited {
+	color: #fff;
+	display: inline-block;
+	height: 30px;
+	padding: 5px 1.5em;
+	text-decoration: none;
+}
+#headerMenu nav a:hover, #headerMenu nav a:active,
+#headerMenu nav .active a:link, #headerMenu nav .active a:visited {
+	background: #C74451;
+	color: #fff;
+	text-shadow: none !important;
+}
+
+#headerMenu nav li:first-child a {
+	border-top-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-webkit-border-top-left-radius: 5px;
+
+	border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+}
+  
+/*.menuHeader li {
 	display: inline;
 	margin: 0em 1em;
-}
+}*/
 
 /*
  * style do conteudo
