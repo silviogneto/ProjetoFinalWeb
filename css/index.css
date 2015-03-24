@@ -1,0 +1,43 @@
+/* arquivo de css da pagina principal do projeto */
+
+body {
+	font: tahoma;
+}
+
+/*
+ * style do cabeçalho
+ */ 
+header {
+	display: block;
+	border: 1px solid black;
+	padding: 3em;
+}
+
+.menuHeader li {
+	display: inline;
+	margin: 0em 1em;
+}
+
+/*
+ * style do conteudo
+ */
+.content {
+	border: 1px solid black;
+	display: block;
+	width: 80%;
+	margin: 0 auto;
+}
+
+/*
+ * style do rodape
+ */
+footer {
+	display: block;
+	border: 1px solid black;
+	padding: 2em;
+}
+
+footer section {
+	display: inline;
+	width: 40%;
+}
