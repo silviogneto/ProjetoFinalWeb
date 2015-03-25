@@ -88,12 +88,40 @@ ul {
  * style do rodape
  */
 footer {
+	background: #F5F4EF;
 	display: block;
-	border: 1px solid black;
-	padding: 2em;
+	padding: 2em 2em 1em 2em;
 }
 
-footer section {
-	display: inline;
-	width: 40%;
+footer .container {
+	position: relative;
+}
+
+.menuRodape {  
+	font-size: 1.2em;
+	line-height: 30px;
+	padding: 0;
+	float: left;
+	top: 12px;
+	right: 0;
+}
+
+.menuRodape li {
+	display: inline; 
+	margin: 0;
+}
+
+.menuRodape li a {
+  float: left;
+  margin-left: 25px;
+}
+
+.menuRodape ul {
+	list-style: none;
+}
+
+.secaoMenuEndereco {
+	position: absolute;
+	top: 12px;
+	right: 0;
 }
