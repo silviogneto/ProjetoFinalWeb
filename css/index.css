@@ -3,9 +3,10 @@
 /* Imports */
 @import url("reset.css");
 
+/* Global */
 body {
     background: #F5F4EF;
-    /*color: #000305;*/
+    color: #000;
     font-size: 85%; /* Base font size: 14px */
     font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     line-height: 1.429;
@@ -14,61 +15,55 @@ body {
     text-align: left;
 }
 
+ul {
+	list-style: outside disc;
+	margin-top: .5em;
+}
+
+.clear { clear: both; }
+.clearL { clear: left; }
+.clearR { clear: right; } 
+
+/* end Global */
+
 /*
  * style do cabeçalho
  */ 
 #headerMenu {
 	display: block;
-	border: 1px solid black;
-	padding: 3em;
+	padding: 2em 2em 1em 2em;
 }
 
 /* Main Nav */
 #headerMenu nav {
 	font-size: 1.2em;
-	line-height: 40px;
+	line-height: 30px;
 	padding: 0;
-	border: 1px solid #000;
 }
-
 #headerMenu nav ul {
 	list-style: none;
-	border: 1px solid #F00;
 }
 #headerMenu nav li {
-	/*float: left; */
 	display: inline; 
 	margin: 0;
 }
-
 #headerMenu nav a:link, #headerMenu nav a:visited {
-	color: #fff;
+	color: #000;
 	display: inline-block;
 	height: 30px;
-	padding: 5px 1.5em;
+	padding: 0.1em 1em;
 	text-decoration: none;
 }
 #headerMenu nav a:hover, #headerMenu nav a:active,
 #headerMenu nav .active a:link, #headerMenu nav .active a:visited {
-	background: #C74451;
+	background: #0074C6;
 	color: #fff;
 	text-shadow: none !important;
+	
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
-
-#headerMenu nav li:first-child a {
-	border-top-left-radius: 5px;
-	-moz-border-radius-topleft: 5px;
-	-webkit-border-top-left-radius: 5px;
-
-	border-bottom-left-radius: 5px;
-	-moz-border-radius-bottomleft: 5px;
-	-webkit-border-bottom-left-radius: 5px;
-}
-  
-/*.menuHeader li {
-	display: inline;
-	margin: 0em 1em;
-}*/
 
 /*
  * style do conteudo
