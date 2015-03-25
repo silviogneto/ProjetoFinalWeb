@@ -125,3 +125,7 @@ footer .container {
 	top: 12px;
 	right: 0;
 }
+
+.endereco {
+	clear: left;
+}
