@@ -7,7 +7,7 @@
  *  Global  *
  ************/
 body {
-    background: #fff;
+    background: #646464;
     color: #000;
     font-size: 85%; /* Base font size: 14px */
     font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -26,7 +26,7 @@ ul {
 .clearL { clear: left; }
 .clearR { clear: right; } 
 
-/* end Global */
+/* end global */
 
 /************
  *  header  *
@@ -72,38 +72,40 @@ ul {
     -webkit-border-radius: 5px;
 }
 
-/* End Header */
+/* end header */
 
-/*
- * style do conteudo
- */
+/*************
+ *  content  *
+ *************/
 .content {
-	border: 1px solid black;
+	background: #fff;
 	display: block;
 	width: 80%;
+	height: 20em;
 	margin: 0 auto;
+	padding: 1em;
 }
 
-/*
- * style do rodape
- */
+/* end content */
+
+/************
+ *  footer  *
+ ************/
 footer {
 	background: #F5F4EF;
 	display: block;
-	padding: 2em 2em 1em 2em;
+	padding: 1em 2em 2em 2em;
+	clear: both;
 }
 
 footer .container {
 	position: relative;
 }
 
-.menuRodape {  
+.menuRodape {
 	font-size: 1.2em;
 	line-height: 30px;
 	padding: 0;
-	float: left;
-	top: 12px;
-	right: 0;
 }
 
 .menuRodape li {
@@ -112,8 +114,8 @@ footer .container {
 }
 
 .menuRodape li a {
-  float: left;
-  margin-left: 25px;
+	float: left;
+	margin-left: 25px;
 }
 
 .menuRodape ul {
@@ -121,11 +123,17 @@ footer .container {
 }
 
 .secaoMenuEndereco {
+	width: 50%;
+}
+
+.secaoImagem {
 	position: absolute;
-	top: 12px;
+	top: 0;
 	right: 0;
 }
 
 .endereco {
 	clear: left;
 }
+
+/* end footer */
