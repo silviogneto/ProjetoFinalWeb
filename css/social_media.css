@@ -1,0 +1,89 @@
+@import url(http://www.markmurray.co/codepen/entypostyle.css);
+
+#socialMedia {
+	margin: 0.5em 1em;
+	float: left;
+	clear: both;
+}
+
+#socialMedia a i {
+	cursor: pointer;
+	display: inline-block;
+	-moz-transition: all 0.15s ease;
+	-o-transition: all 0.15s ease;
+	-webkit-transition: all 0.15s ease;
+	transition: all 0.15s ease;
+}
+
+#socialMedia i {
+	background: transparent;
+	margin-top: 1em !important;
+	
+	color: #34495e;
+	border: 2px solid;
+	border-radius: 50%;
+	padding: 0.5em;
+	position: relative;
+	background: transparent;
+}
+
+.row:first-child i:hover {
+	color: #34495e !important;
+}
+
+.row:first-child i:nth-child(1) {
+	color: #3b5998;
+	border-left: none;
+}
+
+.row:first-child i:nth-child(2) {
+	color: #00a0d1;
+}
+
+.row:first-child i:nth-child(3) {
+	color: #db4a39;
+}
+
+.row:nth-child {
+	background: transparent;
+	margin-top: 2em !important;
+}
+
+.row:nth-child i {
+	color: #34495e;
+	border: 2px solid;
+	border-radius: 50%;
+	padding: 0.5em;
+	position: relative;
+	background: transparent;
+}
+.row:nth-child i:hover {
+	top: -2px;
+	border-radius: 50%;
+	color: white !important;
+}
+.row:nth-child i:not(:first-child) {
+	margin-left: 1em;
+}
+.row:nth-child i:nth-child(1) {
+	color: #3b5998;
+	border-color: #3b5998;
+}
+.row:nth-child i:nth-child(2) {
+	color: #00a0d1;
+	border-color: #00a0d1;
+}
+.row:nth-child i:nth-child(3) {
+	color: #db4a39;
+	border-color: #db4a39;
+}
+
+.row:nth-child i:nth-child(1):hover {
+	background: #3b5998;
+}
+.row:nth-child i:nth-child(2):hover {
+	background: #00a0d1;
+}
+.row:nth-child i:nth-child(3):hover {
+	background: #db4a39;
+}

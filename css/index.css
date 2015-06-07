@@ -2,6 +2,8 @@
 
 /* Imports */
 @import url("reset.css");
+/*@import url("http://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css");*/
+@import url("social_media.css");
 
 /************
  *  Global  *
@@ -91,49 +93,43 @@ ul {
 /************
  *  footer  *
  ************/
-footer {
+#footerMenu {
 	background: #F5F4EF;
 	display: block;
 	padding: 1em 2em 2em 2em;
-	clear: both;
 }
 
-footer .container {
-	position: relative;
+#footerMenu section {
+	display: inline-block;
 }
 
-.menuRodape {
+#sectionMenuEndereco nav ul {
 	font-size: 1.2em;
+	list-style: none;
 	line-height: 30px;
 	padding: 0;
 }
 
-.menuRodape li {
+#sectionMenuEndereco nav li {
 	display: inline; 
 	margin: 0;
 }
 
-.menuRodape li a {
-	float: left;
-	margin-left: 25px;
+#sectionMenuEndereco nav a {
+	margin-left: .5em;
 }
 
-.menuRodape ul {
-	list-style: none;
+#sectionMenuEndereco nav a:hover {
+	color: #0074C6;
+	text-decoration: none;
+	cursor: pointer;
 }
 
-.secaoMenuEndereco {
-	width: 50%;
-}
-
-.secaoImagem {
-	position: absolute;
-	top: 0;
-	right: 0;
+#sectionImage {
+	float: right;
 }
 
 .endereco {
-	clear: left;
 }
 
 /* end footer */
