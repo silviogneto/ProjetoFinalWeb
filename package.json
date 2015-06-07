@@ -1,0 +1,22 @@
+{
+  "name": "series",
+  "version": "1.0.1",
+  "description": "Projeto final de Desenvolvimento Web",
+  "main": "index.js",
+  "scripts": {
+    "test": "teste"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/silviogneto/ProjetoFinalWeb"
+  },
+  "author": "Silvio/Henrique",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/silviogneto/ProjetoFinalWeb/issues"
+  },
+  "homepage": "https://github.com/silviogneto/ProjetoFinalWeb",
+  "dependencies": {
+    "express": "^4.12.4"
+  }
+}
