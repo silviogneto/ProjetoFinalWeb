@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/silviogneto/ProjetoFinalWeb",
   "dependencies": {
-    "express": "^4.12.4"
+    "express": "^4.12.4",
+	  "mysql": "*",
+    "ejs": "~1.0.0"
   }
 }
