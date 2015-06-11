@@ -1,41 +1,21 @@
 /* Imports */
 @import url("reset.css");
 
-.poster {
+#poster {
 	border-radius: 10px;
-	cursor: pointer;
+}
 
+#poster {
+	float: left;
+}
+
+#conteudoSerie {
+	padding: 10;
 }
 
 ul {
 	list-style: outside disc;
 	margin-top: .5em;
-}
-
-#imgOpcoesSerie {
-	border-radius: 15px;
-	position: absolute;
-	cursor: pointer;
-	display: none;
-}
-
-#menuOpcoesSerie { 
-	position: absolute;
-	display: none;
-	background-color: #FFF;
-	padding: 5px;
-}
-
-#menuOpcoesSerie li {
-	margin: 0 5 0 0;
-}
-
-#menuOpcoesSerie li a {
-	float: left;
-}
-
-#menuOpcoesSerie ul {
-	list-style: none;
 }
 
 /* arquivo de css da pagina principal do projeto */
@@ -44,7 +24,7 @@ ul {
  *  Global  *
  ************/
 body {
-	background: #646464;
+    background: #646464;
     color: #000;
     font-size: 85%; /* Base font size: 14px */
     font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
