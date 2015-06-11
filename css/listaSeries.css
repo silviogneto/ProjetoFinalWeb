@@ -7,9 +7,35 @@
 
 }
 
+ul {
+	list-style: outside disc;
+	margin-top: .5em;
+}
+
 #imgOpcoesSerie {
-	border-radius: 20px;
-	position: relative;
+	border-radius: 15px;
+	position: absolute;
+	cursor: pointer;
+	display: none;
+}
+
+#menuOpcoesSerie { 
+	position: absolute;
+	display: none;
+	background-color: #FFF;
+	padding: 5px;
+}
+
+#menuOpcoesSerie li {
+	margin: 0 5 0 0;
+}
+
+#menuOpcoesSerie li a {
+	float: left;
+}
+
+#menuOpcoesSerie ul {
+	list-style: none;
 }
 
 /* arquivo de css da pagina principal do projeto */
@@ -34,11 +60,6 @@ body {
     margin: 0;
     padding: 0;
     text-align: left;
-}
-
-ul {
-	list-style: outside disc;
-	margin-top: .5em;
 }
 
 .clear { clear: both; }

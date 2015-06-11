@@ -15,22 +15,42 @@ function aplicarEventos()
 		event.prevenDefault();
 	});
 
-	$('.poster').mouseover(function(event)
+	$('#imgOpcoesSerie').mouseleave(function()
 	{
-		event.stopImmediatePropagation();
+		$('#menuOpcoesSerie').css('display', 'none');
+	});
 
+	$('#imgOpcoesSerie').click(function()
+	{
+		var offsetImg = $(this).offset();
+
+		$('#menuOpcoesSerie')
+			.css('top', offsetImg.top - 50)
+			.css('left', offsetImg.left + 40)
+			.css('display', 'block');
+	});
+
+	$('#content').mouseover(function(event)
+	{
+		$('#imgOpcoesSerie').css('display', 'none');		
+	});
+
+	$('#menuOpcoesSerie').mouseenter(function()
+	{
+		$('#menuOpcoesSerie').css('display', 'block');
+	}).mouseleave(function(event)
+	{
+		$('#menuOpcoesSerie').css('display', 'none');		
+	});
+
+	$('.poster').mouseenter(function(event)
+	{
 		var offsetImg = $(this).offset();
 
 		$('#imgOpcoesSerie')
-			.css('top', offsetImg.top + 50)
+			.css('top', offsetImg.top + 250)
 			.css('left', offsetImg.left + 90)
-			.show();
-
-	}).mouseleave(function(event)
-	{
-		event.stopImmediatePropagation();
-		
-		$('#imgOpcoesSerie').hide();
+			.css('display', 'block');
 	});
 }
 
