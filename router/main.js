@@ -1,9 +1,27 @@
+var config = {
+	titulo: 'Projeto Series',
+	homeSelected: '',
+	amigosSelected: '',
+	seriesSelected: ''
+}
+
 module.exports = function(app) {
-	app.get('/', function(req, res) {
-		res.render('index', {titulo: 'Projeto Series'});
-	});
+	app.get('/', goToIndex);
+	app.get('/index', goToIndex);
 
 	app.get('/series', function(req, res) {
-		res.render('listaSeries.html');
+		config.homeSelected = '';
+		config.amigosSelected = '';
+		config.seriesSelected = 'active';
+
+		res.render('listaSeries', config);
 	});
+}
+
+function goToIndex (req, res) {
+	config.homeSelected = 'active';
+	config.amigosSelected = '';
+	config.seriesSelected = '';
+
+	res.render('index', config);
 }

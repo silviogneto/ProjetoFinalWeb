@@ -1,0 +1,45 @@
+﻿<!DOCTYPE HTML>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8">
+		
+		<% include includesCSS %>
+		<link rel="stylesheet" type="text/css" href="css/listaSeries.css" />
+
+		<title><%= titulo %></title>
+	</head>
+	<body>
+		<% include headerMenu %>
+		
+		<img id="imgOpcoesSerie" src="img/opcoesSerie.jpg" width="50" height="25" />
+
+		<div id="menuOpcoesSerie">
+			<ul>
+				<li>
+					<a href="#">Adicinar à Já Vistos</a>
+				</li>
+				<li>
+					<a href="#">Adicionar à Desejo Ver</a>
+				</li>
+			</ul><i class="replace popup-arrow"></i>
+		</div>
+
+		<div id="content" class="container">
+
+			<img class="poster" src="img/series/gameofthrones-poster.jpg" width="230" height="345" alt="Game of Thrones" itemprop="photo">
+
+			<img class="poster" src="img/series/gameofthrones-poster.jpg" width="230" height="345" alt="Game of Thrones" itemprop="photo">
+
+			<img class="poster" src="img/series/gameofthrones-poster.jpg" width="230" height="345" alt="Game of Thrones" itemprop="photo">
+			
+			<div>
+				<a href="#" id="carrega-series">Mais!</a>
+			</div>
+		</div>
+		
+		<% include footer %>
+
+		<% include includesJS %>
+		<script type="text/javascript" src="js/listaSeries.js"></script>
+	</body>
+</html>
