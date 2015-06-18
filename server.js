@@ -1,21 +1,23 @@
 var express = require('express'),
+	session = require('express-session'),
+	bodyParser = require('body-parser'),
 	app = express();
-
-require('./router/main')(app);
 
 app.set('views', __dirname.concat('/views'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
-app.use(express.static(__dirname.concat('/resources')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
-/*app.get('/', function(req, res) {
-	res.send('Hello world');
-});*/
+app.use(express.static(__dirname.concat('/resources')));
+app.use(session({secret: 'serie5S3cRe7'}));
+
+require('./router/main')(app);
 
 var server = app.listen(3000, function() {
 	//var host = server.address().address,
 	//	port = server.address().port;
 	
-	//console.log('listen http://%s:%s', host, port);
+	console.log('Iniciando servidor');
 });

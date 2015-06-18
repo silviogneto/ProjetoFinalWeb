@@ -3,7 +3,7 @@ var config = {
 	homeSelected: '',
 	amigosSelected: '',
 	seriesSelected: ''
-}
+};
 
 module.exports = function(app) {
 	app.get('/', goToIndex);
@@ -40,12 +40,38 @@ module.exports = function(app) {
 
 		res.render('serieNaoEncontrada', config);
 	});
+
+	// controle de usuario
+	app.post('/login', function(req, res) {
+		var sess = req.session;
+
+		console.log('usuario que tentou fazer login: ' + req.body.usuario);
+		console.log('tentou fazer login');
+
+		res.send('end');
+	});
+	app.get('/logout', function(req, res) {
+		req.session.destroy(function(err) {
+			if (err) {
+				console.log(err);
+			} else {
+				res.redirect('/');
+			}
+		});
+	});
 }
 
 function goToIndex (req, res) {
 	config.homeSelected = 'active';
 	config.amigosSelected = '';
 	config.seriesSelected = '';
+
+	var sess = req.session;
+	if (sess.logado) {
+		//console.log('usuario está logado');
+	} else {
+		//console.log('usuario deslogado');
+	}
 
 	res.render('index', config);
 }
