@@ -9,6 +9,11 @@ aplicarEventos();
 
 function aplicarEventos()
 {
+	$(".poster").click(function()
+	{
+		window.location.href = "/series/"  + $(this).data('serieid'); 
+	});
+
 	$('#carrega-series').click(function()
 	{
 		retornarSeries();
@@ -67,9 +72,14 @@ function retornarSeries()
 	{
 		$('.carregando').fadeOut(function()
 		{
+			var serie;
+
 	  		for(x in tweets)
+	  		{
+	  			serie = series[x];
 	   			$('#lista-tweets').append(
-	   				'<img class="poster" src="../resources/img/series/' + series[x].caminhoImagemPoster + '" width="230" height="345" alt="' + series[x].nome + '" itemprop="photo">');
+	   				'<img class="poster" data-serieid="' + serie.id + '" src="resources/img/series/' + serie.caminhoImagemPoster + '" width="230" height="345" alt="' + serie.nome + '" itemprop="photo">');
+	   		}
 
 	 		$(this).remove();
 

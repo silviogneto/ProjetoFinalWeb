@@ -31,7 +31,11 @@ module.exports = function(app) {
 	app.get('/series/:serieId', function(req, res) {
 		// the user was found and is available in req.user
 		//res.send('Não implementado');
-		res.redirect('/erroserie');
+		//res.redirect('/erroserie');
+		config.homeSelected = '';
+		config.amigosSelected = '';
+		config.seriesSelected = 'active';
+		res.render('cadastraSerie',config);
 	});
 	app.get('/erroserie', function(req, res) {
 		config.homeSelected = '';

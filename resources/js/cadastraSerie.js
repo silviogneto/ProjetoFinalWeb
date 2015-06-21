@@ -9,12 +9,6 @@ aplicarEventos();
 
 function aplicarEventos()
 {
-	$('#carrega-series').click(function()
-	{
-		retornarSeries();
-		event.prevenDefault();
-	});
-
 	$('#imgOpcoesSerie').mouseleave(function()
 	{
 		$('#menuOpcoesSerie').css('display', 'none');
