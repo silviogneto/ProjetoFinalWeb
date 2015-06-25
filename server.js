@@ -10,7 +10,8 @@ app.engine('html', require('ejs').renderFile);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(express.static(__dirname.concat('/resources')));
+app.use(express.static('resources'));
+app.use('/series', express.static('resources'));
 app.use(session({secret: 'serie5S3cRe7'}));
 
 require('./router/main')(app);
