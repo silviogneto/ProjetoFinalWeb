@@ -35,7 +35,7 @@ module.exports = function(app) {
 		config.homeSelected = '';
 		config.amigosSelected = '';
 		config.seriesSelected = 'active';
-		res.render('cadastraSerie',config);
+		res.render('cadastraSerie', config);
 	});
 	app.get('/erroserie', function(req, res) {
 		config.homeSelected = '';
