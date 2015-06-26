@@ -19,7 +19,3 @@ require('./router/main')(app);
 app.listen(3000, function() {
 	console.log('Iniciando servidor da aplicação');
 });
-
-/*var server = app.listen(3000, function() {
-	console.log('Iniciando servidor');
-});*/

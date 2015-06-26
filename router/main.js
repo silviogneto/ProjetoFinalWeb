@@ -7,8 +7,21 @@ var config = {
 };
 
 module.exports = function(app) {
-	app.get('/', goToIndex);
-	app.get('/index', goToIndex);
+	app.get(['/', '/index'], function(req, res) {
+		config.homeSelected = 'active';
+		config.amigosSelected = '';
+		config.seriesSelected = '';
+		config.procuraVisible = 'hide';
+
+		var sess = req.session;
+		if (sess.logado) {
+			//console.log('usuario está logado');
+		} else {
+			//console.log('usuario deslogado');
+		}
+
+		res.render('index', config);
+	});
 
 	// parte das series
 	app.get('/series', function(req, res) {
@@ -50,12 +63,16 @@ module.exports = function(app) {
 
 	// controle de usuario
 	app.post('/login', function(req, res) {
-		var sess = req.session;
+		var sess = req.session,
+			user = require('./../model/userModel');
+
+		user.validarUsuario(req.body.usuario, req.body.senha,  function(rows, fields) {
+			console.log(rows.length);
+			res.send('' + rows.length);
+		});
 
 		console.log('usuario que tentou fazer login: ' + req.body.usuario);
 		console.log('tentou fazer login');
-
-		res.send('end');
 	});
 	app.get('/logout', function(req, res) {
 		req.session.destroy(function(err) {
@@ -66,20 +83,4 @@ module.exports = function(app) {
 			}
 		});
 	});
-}
-
-function goToIndex (req, res) {
-	config.homeSelected = 'active';
-	config.amigosSelected = '';
-	config.seriesSelected = '';
-	config.procuraVisible = 'hide';
-
-	var sess = req.session;
-	if (sess.logado) {
-		//console.log('usuario está logado');
-	} else {
-		//console.log('usuario deslogado');
-	}
-
-	res.render('index', config);
 }
