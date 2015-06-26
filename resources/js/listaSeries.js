@@ -34,7 +34,7 @@ function aplicarEventos()
 			.css('display', 'block');
 	});
 
-	$('#content').mouseover(function(event)
+	$('#content').mouseenter(function(event)
 	{
 		$('#imgOpcoesSerie').css('display', 'none');		
 	});
@@ -50,15 +50,64 @@ function aplicarEventos()
 	$('.poster').mouseenter(function(event)
 	{
 		var offsetImg = $(this).offset();
-
+		
 		$('#imgOpcoesSerie')
+			.css('display', 'block')
 			.css('top', offsetImg.top + 250)
 			.css('left', offsetImg.left + 90)
-			.css('display', 'block');
+			.data('serieId', $(this).data('serieid'));
+	});
+
+	$('#linkAdicionrJaVistos').click(function()
+	{
+		var serieId = $('#imgOpcoesSerie').data('serieId');
+
+		alert('série ' + serieId + ' marcar já vistos');
+
+		/*var url = 'localhost:8080:arquivojs.js';
+
+		$.post(url,{
+			metodo: 'marcarComoJaVisto',
+			serieId: serieid
+		}, function()
+		{
+			//marcar em tela como já visto
+		});*/
+	});
+
+	$('#linkAdiconarDesejoVer').click(function()
+	{
+		var serieId = $('#imgOpcoesSerie').data('serieId');
+
+		alert('série ' + serieId + ' marcar quero ver');
+
+		var url = 'localhost:8080:arquivojs.js';
+
+		/*$.post(url,{
+			metodo: 'marcarComoDesejoVer',
+			serieId: serieid
+		}, function()
+		{
+			//marcar em tela como já visto
+		});*/
+	});
+
+	$('#frmTextoPesquisa').keypress(function(e) {
+		if (e.which === 13)
+		{
+			e.preventDefault();
+
+			var textoPesquisa = $(this).val();
+
+			alert('texto pequisado ' + textoPesquisa);
+
+			//$('#lista-tweets').reset();
+			//retornarSeries(1);
+		}
 	});
 }
 
-function retornarSeries()
+function retornarSeries(pagina)
 {
 	$('#carrega-series').hide();
 
@@ -66,7 +115,7 @@ function retornarSeries()
 
 	var url = 'localhost:8080:arquivojs.js';
  
- 	var pagina = $('#carrega-series').get('pagina');
+ 	var pagina = (pagina > 0) ? pagina : $('#carrega-series').get('pagina');
 
 	$.getJSON(url, {qtdRegistro: qtdRegistros, pagina: pagina}, function(series)
 	{

@@ -2,7 +2,8 @@ var config = {
 	titulo: 'Projeto Series',
 	homeSelected: '',
 	amigosSelected: '',
-	seriesSelected: ''
+	seriesSelected: '',
+	procuraVisible: ''
 };
 
 module.exports = function(app) {
@@ -14,7 +15,7 @@ module.exports = function(app) {
 		config.homeSelected = '';
 		config.amigosSelected = '';
 		config.seriesSelected = 'active';
-
+		config.procuraVisible = '';
 		res.render('listaSeries', config);
 	});
 	app.param('serieId', function(req, res, next, serieId) {
@@ -35,12 +36,14 @@ module.exports = function(app) {
 		config.homeSelected = '';
 		config.amigosSelected = '';
 		config.seriesSelected = 'active';
+		config.procuraVisible = 'hide';
 		res.render('cadastraSerie', config);
 	});
 	app.get('/erroserie', function(req, res) {
 		config.homeSelected = '';
 		config.amigosSelected = '';
 		config.seriesSelected = '';
+		config.procuraVisible = 'hide';
 
 		res.render('serieNaoEncontrada', config);
 	});
@@ -69,6 +72,7 @@ function goToIndex (req, res) {
 	config.homeSelected = 'active';
 	config.amigosSelected = '';
 	config.seriesSelected = '';
+	config.procuraVisible = 'hide';
 
 	var sess = req.session;
 	if (sess.logado) {

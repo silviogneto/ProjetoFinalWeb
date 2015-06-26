@@ -16,6 +16,13 @@
 				<li><a href="#">Amigos</a></li>
 				<li class="<%= seriesSelected %>"><a href="/series">Series</a></li>
 			</ul>
+
+			<div class="<%= procuraVisible %> navbar-form navbar-left" role="search" id="frmPesquisa">
+        		<div class="form-group">
+         			<input type="text" class="form-control" placeholder="Digite o nome da série" id="frmTextoPesquisa">
+       		 	</div>
+      		</div>
+
 			<form action="/login" id="frmLogin" class="navbar-form navbar-right">
 				<div class="form-group">
 					<input type="text" placeholder="Usuário" class="form-control" id="frmLoginUsuario" />
