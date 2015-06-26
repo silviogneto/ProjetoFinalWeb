@@ -25,11 +25,28 @@ module.exports = function(app) {
 
 	// parte das series
 	app.get('/series', function(req, res) {
+		config.titulo = 'Lista de Séries'
 		config.homeSelected = '';
 		config.amigosSelected = '';
 		config.seriesSelected = 'active';
 		config.procuraVisible = '';
 		res.render('listaSeries', config);
+	});
+	app.get('/seriesJaVistas', function(req, res) {
+		config.titulo = 'Lista das Séries já vistas'
+		config.homeSelected = '';
+		config.amigosSelected = '';
+		config.seriesSelected = 'active';
+		config.procuraVisible = '';
+		res.render('listaSeriesJaVistas', config);
+	});
+	app.get('/seriesDesejoVer', function(req, res) {
+		config.titulo = 'Lista das Séries que desejo ver'
+		config.homeSelected = '';
+		config.amigosSelected = '';
+		config.seriesSelected = 'active';
+		config.procuraVisible = '';
+		res.render('listaSeriesDesejoVer', config);
 	});
 	app.param('serieId', function(req, res, next, serieId) {
 		// check if the user with that name exists
@@ -46,6 +63,7 @@ module.exports = function(app) {
 		// the user was found and is available in req.user
 		//res.send('Não implementado');
 		//res.redirect('/erroserie');
+		config.titulo = 'Série'
 		config.homeSelected = '';
 		config.amigosSelected = '';
 		config.seriesSelected = 'active';
