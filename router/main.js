@@ -92,6 +92,7 @@ module.exports = function(app) {
 			res.send('' + rows.length);
 		});
 	});
+
 	app.post('/logout', function(req, res) {
 		config.usuarioLogado = false;
 		req.session.destroy(function(err) {
@@ -100,6 +101,16 @@ module.exports = function(app) {
 			} else {
 				res.redirect('/');
 			}
+		});
+	});
+
+	app.get('/retornarseries', function(req, res) {
+		var serie = require('./../model/serieModel'),
+			pagina = Number(req.query.pagina) || 0,
+			qtdRegistros = Number(req.query.qtdRegistros) || 0;
+
+		serie.buscarSeries(pagina, qtdRegistros, function(rows, fields) {
+			res.send('{"serie":' + JSON.stringify(rows) + '}');
 		});
 	});
 }
