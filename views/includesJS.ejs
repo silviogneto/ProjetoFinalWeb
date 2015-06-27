@@ -20,6 +20,11 @@
 				senha: senha
 			}, function(data) {
 				console.log(data);
+
+				if (data > 0) {
+					$(frm).attr('action', '/logout');
+					$(frm).html('<input type="submit" class="btn btn-default" id="frmLoginSubmit" value="Log out" />');
+				}
 			});
 		});
 	});

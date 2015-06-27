@@ -3,7 +3,8 @@ var config = {
 	homeSelected: '',
 	amigosSelected: '',
 	seriesSelected: '',
-	procuraVisible: ''
+	procuraVisible: '',
+	usuarioLogado: false
 };
 
 module.exports = function(app) {
@@ -12,13 +13,6 @@ module.exports = function(app) {
 		config.amigosSelected = '';
 		config.seriesSelected = '';
 		config.procuraVisible = 'hide';
-
-		var sess = req.session;
-		if (sess.logado) {
-			//console.log('usuario está logado');
-		} else {
-			//console.log('usuario deslogado');
-		}
 
 		res.render('index', config);
 	});
@@ -85,14 +79,21 @@ module.exports = function(app) {
 			user = require('./../model/userModel');
 
 		user.validarUsuario(req.body.usuario, req.body.senha,  function(rows, fields) {
-			console.log(rows.length);
+			if (rows.length > 0) {
+				sess.user = req.body.usuario;
+				sess.logado = true;
+				config.usuarioLogado = true;
+			} else {
+				sess.user = '';
+				sess.logado = false;
+				config.usuarioLogado = false;
+			}
+
 			res.send('' + rows.length);
 		});
-
-		console.log('usuario que tentou fazer login: ' + req.body.usuario);
-		console.log('tentou fazer login');
 	});
-	app.get('/logout', function(req, res) {
+	app.post('/logout', function(req, res) {
+		config.usuarioLogado = false;
 		req.session.destroy(function(err) {
 			if (err) {
 				console.log(err);

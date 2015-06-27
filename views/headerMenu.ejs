@@ -33,6 +33,7 @@
        		 	</div>
       		</div>
 
+      		<% if (usuarioLogado == false) { %>
 			<form action="/login" id="frmLogin" class="navbar-form navbar-right">
 				<div class="form-group">
 					<input type="text" placeholder="Usuário" class="form-control" id="frmLoginUsuario" />
@@ -42,6 +43,11 @@
 				</div>
 				<input type="submit" class="btn btn-success" id="frmLoginSubmit" value="Log in" />
 			</form>
+			<% } else { %>
+			<form action="/logout" id="frmLogin" class="navbar-form navbar-right">
+				<input type="submit" class="btn btn-default" id="frmLoginSubmit" value="Log out" />
+			</form>
+			<% } %>
 		</div><!--/.nav-collapse -->
 	</div>
 </nav>
