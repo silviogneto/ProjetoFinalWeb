@@ -4,7 +4,8 @@ var config = {
 	amigosSelected: '',
 	seriesSelected: '',
 	procuraVisible: '',
-	usuarioLogado: false
+	usuarioLogado: false,
+	serie : {}
 };
 
 module.exports = function(app) {
@@ -57,12 +58,24 @@ module.exports = function(app) {
 		// the user was found and is available in req.user
 		//res.send('Não implementado');
 		//res.redirect('/erroserie');
-		config.titulo = 'Série'
-		config.homeSelected = '';
-		config.amigosSelected = '';
-		config.seriesSelected = 'active';
-		config.procuraVisible = 'hide';
-		res.render('cadastraSerie', config);
+
+		var serie = require('./../model/serieModel'),
+			serieId = Number(req.params.serieId) || 0;
+
+		serie.buscarSerie(serieId, function(rows, fields) {
+
+			if (rows.length > 0)
+			{
+				config.serie = rows[0];
+
+				config.titulo = 'Série'
+				config.homeSelected = '';
+				config.amigosSelected = '';
+				config.seriesSelected = 'active';
+				config.procuraVisible = 'hide';
+				res.render('cadastraSerie', config);
+			}
+		});		
 	});
 	app.get('/erroserie', function(req, res) {
 		config.homeSelected = '';
@@ -109,7 +122,7 @@ module.exports = function(app) {
 			pagina = Number(req.query.pagina) || 0,
 			qtdRegistros = Number(req.query.qtdRegistros) || 0;
 
-		serie.buscarSeries(pagina, qtdRegistros, function(rows, fields) {
+		serie.buscarListaSeries(pagina, qtdRegistros, function(rows, fields) {
 			res.send('{"serie":' + JSON.stringify(rows) + '}');
 		});
 	});

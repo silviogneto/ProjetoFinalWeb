@@ -5,7 +5,17 @@ function SerieModel() {
 	this.imgPoster = '';
 	this.ano;
 
-	this.buscarSeries = function(pagina, qtdRegistros, callback) {
+	this.buscarSerie = function(serieId, callback) {
+
+		var bd = require('./database'),
+			query =  'SELECT Id, Nome, Descricao, ImgPoster, Ano FROM serie WHERE Id = ' + serieId;
+
+		callback = callback || function(){};
+		
+		bd.select(query, callback);
+	}
+
+	this.buscarListaSeries = function(pagina, qtdRegistros, callback) {
 
 		var offset = pagina * qtdRegistros,
 			limit = qtdRegistros;
