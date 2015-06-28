@@ -4,7 +4,7 @@ function DBSeries() {
 		connectionLimit: 100,
 		host: 'localhost',
 		user: 'root',
-		password: '1234',
+		password: 'admin',
 		database: 'bd_series'
 	});
 
@@ -28,6 +28,27 @@ function DBSeries() {
 			});
 		});
 	};
+
+	this.insert = function(sqlQuery, params, callback) {
+		callback = callback || this.nullHandler;
+
+		this.pool.getConnection(function(err, connection) {
+			if (err) {
+				connection.release();
+				throw err;
+			}
+			
+			connection.query(sqlQuery, params, function(err, result) {
+				connection.release();
+
+				if (err) {
+					throw err;
+				} else {
+					callback(result);
+				}
+			});
+		});
+	}
 
 	this.nullHandler = function(){};
 };

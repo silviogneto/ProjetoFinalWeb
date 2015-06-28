@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8">
+
+		<% include includesCSS %>
+		<link rel="stylesheet" type="text/css" href="/css/cadastroUsuario.css" />
+
+		<title><%= titulo %></title>
+	</head>
+	<body>
+		<% include headerMenu %>
+		
+		<div id="content" class="content container">
+
+			<form id="frmUsuario">
+
+				<div class="form-group">
+					<label for="inputNome">Nome</label>
+					<input type="text" class="form-control" id="inputNome" placeholder="Nome">
+				</div>
+
+				<div class="form-group">
+					<label for="inputEmail">Email</label>
+					<input type="email" class="form-control" id="inputEmail" placeholder="Email">
+				</div>
+
+				<div class="form-group">
+					<label for="inputLogin">Login</label>
+					<input type="text" class="form-control" id="inputLogin" placeholder="Login">
+				</div>
+
+				<div class="form-group">
+					<label for="inputSenha">Senha</label>
+					<input type="password" class="form-control" id="inputSenha" placeholder="Senha">
+				</div>
+
+				<div class="form-group">
+					<label for="inputConfirmarSenha">Confirmar Senha</label>
+					<input type="password" class="form-control" id="inputConfirmarSenha" placeholder="Confirmar Senha">
+				</div>
+
+				<button type="submit" class="btn btn-primary" id="btnSalvar">Salvar</button>
+
+			</form>
+
+		</div>
+		
+		<% include footer %>
+		<% include includesJS %>
+		<script type="text/javascript" src="/js/cadastroUsuario.js"></script>
+	</body>
+</html>

@@ -1,6 +1,7 @@
 function UserModel() {
 	this.id = 0;
 	this.nome = '';
+	this.email = '';
 	this.login = '';
 	this.senha = '';
 
@@ -8,10 +9,21 @@ function UserModel() {
 		var bd = require('./database'),
 			query = 'SELECT Id FROM usuario WHERE Login = "' + usuario + '" and Senha = "' + senha + '"';
 
-		callback = callback || function(){};
-		
 		bd.select(query, callback);
 	};
+
+	this.salvarUsuario = function(callback) {
+		var me = this,
+			bd = require('./database'),
+			query = 'INSERT INTO usuario (Nome, Email, Login, Senha) VALUES (?, ?, ?, ?)';
+
+		bd.insert(query, [
+			me.nome,
+			me.email,
+			me.login,
+			me.senha
+		], callback);
+	}
 };
 
 module.exports = new UserModel();

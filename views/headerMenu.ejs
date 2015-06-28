@@ -33,21 +33,29 @@
        		 	</div>
       		</div>
 
-      		<% if (usuarioLogado == false) { %>
-			<form action="/login" id="frmLogin" class="navbar-form navbar-right">
+      		<div id="divUserControl" class="navbar-form navbar-right">
+	      		<% if (usuarioLogado == true) { %>
+				<form action="/logout" method="GET" id="frmLogin">
+					<!--div class="form-group">
+						<label>Bem-vindo, Usuario</label>
+					</div-->
+					<input type="submit" class="btn btn-default" id="frmLoginSubmit" value="Log out" />
+				</form>
+				<% } else { %>
+				<form action="/login" method="POST" id="frmLogin">
+					<div class="form-group">
+						<input type="text" placeholder="Usuário" class="form-control" id="frmLoginUsuario" />
+					</div>
+					<div class="form-group">
+						<input type="password" placeholder="Senha" class="form-control" id="frmLoginSenha" />
+					</div>
+					<input type="submit" class="btn btn-success" id="frmLoginSubmit" value="Log in" />
+				</form>
 				<div class="form-group">
-					<input type="text" placeholder="Usuário" class="form-control" id="frmLoginUsuario" />
+					<a href="/usuario/novo">Cadastrar</a>
 				</div>
-				<div class="form-group">
-					<input type="password" placeholder="Senha" class="form-control" id="frmLoginSenha" />
-				</div>
-				<input type="submit" class="btn btn-success" id="frmLoginSubmit" value="Log in" />
-			</form>
-			<% } else { %>
-			<form action="/logout" id="frmLogin" class="navbar-form navbar-right">
-				<input type="submit" class="btn btn-default" id="frmLoginSubmit" value="Log out" />
-			</form>
-			<% } %>
+				<% } %>
+      		</div>
 		</div><!--/.nav-collapse -->
 	</div>
 </nav>

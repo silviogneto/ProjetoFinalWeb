@@ -13,18 +13,36 @@
 			var frm = $(this),
 				usuario = $('#frmLoginUsuario').val(),
 				senha = $('#frmLoginSenha').val(),
-				url = frm.attr("action");
+				url = frm.attr("action"),
+				method = frm.attr("method");
 
-			$.post(url, {
-				usuario: usuario,
-				senha: senha
-			}, function(data) {
-				console.log(data);
-
-				if (data > 0) {
-					$(frm).attr('action', '/logout');
-					$(frm).html('<input type="submit" class="btn btn-default" id="frmLoginSubmit" value="Log out" />');
+			$.ajax({
+				url: url,
+				method: method,
+				data: {
+					usuario: usuario,
+					senha: senha
+				},
+				xhrFields: {
+					withCredentials: true
+				},
+				beforeSend: function() {
+					//$('#divUserControl').mask("Validando usuário...");
 				}
+			})
+			.done(function(res) {
+				if (typeof res === 'object') {
+					if (res.type == true) {
+						$('#divUserControl').html(res.html);
+					}
+					
+					return;
+				}
+
+				window.location.href = '/';
+			})
+			.always(function() {
+				//$('#divUserControl').unmask();
 			});
 		});
 	});

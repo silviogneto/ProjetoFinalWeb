@@ -14,6 +14,7 @@ module.exports = function(app) {
 		config.amigosSelected = '';
 		config.seriesSelected = '';
 		config.procuraVisible = 'hide';
+		config.usuarioLogado = req.session.logado;
 
 		res.render('index', config);
 	});
@@ -25,6 +26,8 @@ module.exports = function(app) {
 		config.amigosSelected = '';
 		config.seriesSelected = 'active';
 		config.procuraVisible = '';
+		config.usuarioLogado = req.session.logado;
+
 		res.render('listaSeries', config);
 	});
 	app.get('/seriesJaVistas', function(req, res) {
@@ -33,6 +36,8 @@ module.exports = function(app) {
 		config.amigosSelected = '';
 		config.seriesSelected = 'active';
 		config.procuraVisible = '';
+		config.usuarioLogado = req.session.logado;
+
 		res.render('listaSeriesJaVistas', config);
 	});
 	app.get('/seriesDesejoVer', function(req, res) {
@@ -41,6 +46,8 @@ module.exports = function(app) {
 		config.amigosSelected = '';
 		config.seriesSelected = 'active';
 		config.procuraVisible = '';
+		config.usuarioLogado = req.session.logado;
+
 		res.render('listaSeriesDesejoVer', config);
 	});
 	app.param('serieId', function(req, res, next, serieId) {
@@ -73,50 +80,12 @@ module.exports = function(app) {
 				config.amigosSelected = '';
 				config.seriesSelected = 'active';
 				config.procuraVisible = 'hide';
+				config.usuarioLogado = req.session.logado;
+
 				res.render('cadastraSerie', config);
 			}
 		});		
 	});
-	app.get('/erroserie', function(req, res) {
-		config.homeSelected = '';
-		config.amigosSelected = '';
-		config.seriesSelected = '';
-		config.procuraVisible = 'hide';
-
-		res.render('serieNaoEncontrada', config);
-	});
-
-	// controle de usuario
-	app.post('/login', function(req, res) {
-		var sess = req.session,
-			user = require('./../model/userModel');
-
-		user.validarUsuario(req.body.usuario, req.body.senha,  function(rows, fields) {
-			if (rows.length > 0) {
-				sess.user = req.body.usuario;
-				sess.logado = true;
-				config.usuarioLogado = true;
-			} else {
-				sess.user = '';
-				sess.logado = false;
-				config.usuarioLogado = false;
-			}
-
-			res.send('' + rows.length);
-		});
-	});
-
-	app.post('/logout', function(req, res) {
-		config.usuarioLogado = false;
-		req.session.destroy(function(err) {
-			if (err) {
-				console.log(err);
-			} else {
-				res.redirect('/');
-			}
-		});
-	});
-
 	app.get('/retornarseries', function(req, res) {
 		var serie = require('./../model/serieModel'),
 			pagina = Number(req.query.pagina) || 0,
@@ -124,6 +93,73 @@ module.exports = function(app) {
 
 		serie.buscarListaSeries(pagina, qtdRegistros, function(rows, fields) {
 			res.send('{"serie":' + JSON.stringify(rows) + '}');
+		});
+	});
+	app.get('/erroserie', function(req, res) {
+		config.homeSelected = '';
+		config.amigosSelected = '';
+		config.seriesSelected = '';
+		config.procuraVisible = 'hide';
+		config.usuarioLogado = req.session.logado;
+
+		res.render('serieNaoEncontrada', config);
+	});
+
+	// controle de usuario
+	app.get('/usuario/novo', function(req, res) {
+		config.homeSelected = '';
+		config.amigosSelected = '';
+		config.seriesSelected = '';
+		config.procuraVisible = 'hide';
+		config.usuarioLogado = req.session.logado;
+
+		res.render('cadastroUsuario', config);
+	});
+	app.put('/usuario/novo', function(req, res) {
+		var user = require('./../model/userModel');
+
+		user.nome = req.body.nome;
+		user.email = req.body.email;
+		user.login = req.body.login;
+		user.senha = req.body.senha;
+
+		user.salvarUsuario(function() {
+			res.send(200);
+		});
+	});
+
+	app.post('/login', function(req, res) {
+		var sess = req.session,
+			user = require('./../model/userModel'),
+			html;
+
+		user.validarUsuario(req.body.usuario, req.body.senha,  function(rows, fields) {
+			if (rows.length > 0) {
+				sess.user = req.body.usuario;
+				sess.logado = true;
+
+				html = '<form action="/logout" method="GET" id="frmLogin">'.concat(
+							'<!--div class="form-group"><label>Bem-vindo, Usuario</label></div-->',
+							'<input type="submit" class="btn btn-default" id="frmLoginSubmit" value="Log out" />',
+						'</form>');
+			} else {
+				sess.user = '';
+				sess.logado = false;
+			}
+
+			res.json({
+				type: sess.logado,
+				html: html
+			});
+		});
+	});
+	app.get('/logout', function(req, res) {
+		req.session.destroy(function(err) {
+			if (err) {
+				console.log(err);
+			} else {
+				res.redirect('/');
+			}
 		});
 	});
 }
