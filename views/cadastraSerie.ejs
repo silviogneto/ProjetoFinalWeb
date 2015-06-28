@@ -19,21 +19,35 @@
 
 			<aside style="align: rigth; display: inline;">
 				<ul>
-					<li>
-						<a id="linkAdicionrJaVistos" href="#">Adicinar à Já Vistos</a>
-					</li>
-					<li>
-						<a id="linkAdiconarDesejoVer" href="#">Adicionar à Desejo Ver</a>
-					</li>
+					<% if (usuarioLogado) { %>
+						
+						<li>
+							<a id="linkAdicionarJaVistas" href="#">Adicinar à Já Vistas</a>
+						</li>
+						<li>
+							<a id="linkRemoverJaVistas" href="#">Remover de Já Vistas</a>
+						</li>
+						<li>
+							<a id="linkAdiconarDesejoVer" href="#">Adicionar à Desejo Ver</a>
+						</li>
+						<li>
+							<a id="linkRemoverDesejoVer" href="#">Remover de Desejo Ver</a>
+						</li>
+
+					<% } %>
+
 				</ul>
 			</aside>
 			
-			<% serie.Descricao %>
+			<%= serie.Descricao %>
 
 		</div>
 		
 		<% include footer %>
 		<% include includesJS %>
 		<script type="text/javascript" src="/js/cadastraSerie.js"></script>
+		<script type="text/javascript">
+			this.econderExibirOpcoes(!!<%=serie.MarcadaJaVista%>,!!<%=serie.MarcadaDesejoVer%>);
+		</script>
 	</body>
 </html>

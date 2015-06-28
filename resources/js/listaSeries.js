@@ -14,40 +14,6 @@ function aplicarEventos()
 		retornarSeries();
 	});
 
-	$('#linkAdicionarJaVistos').click(function()
-	{
-		var serieId = $('#imgOpcoesSerie').data('serieId');
-
-		alert('série ' + serieId + ' marcar já vistos');
-
-		/*var url = 'localhost:8080:arquivojs.js';
-
-		$.post(url,{
-			metodo: 'marcarComoJaVisto',
-			serieId: serieid
-		}, function()
-		{
-			//marcar em tela como já visto
-		});*/
-	});
-
-	$('#linkAdiconarDesejoVer').click(function()
-	{
-		var serieId = $('#imgOpcoesSerie').data('serieId');
-
-		alert('série ' + serieId + ' marcar quero ver');
-
-		var url = 'localhost:8080:arquivojs.js';
-
-		/*$.post(url,{
-			metodo: 'marcarComoDesejoVer',
-			serieId: serieid
-		}, function()
-		{
-			//marcar em tela como já visto
-		});*/
-	});
-
 	$('#frmTextoPesquisa').keypress(function(e) {
 		if (e.which === 13)
 		{
@@ -69,8 +35,8 @@ function aplicarEventosPoster()
 	{
 		window.location.href = "/series/"  + $(this).data('serieid'); 
 	});
-
-	$('#imgOpcoesSerie').mouseleave(function()
+	
+	/*$('#imgOpcoesSerie').mouseleave(function()
 	{
 		$('#menuOpcoesSerie').css('display', 'none');
 	});
@@ -107,7 +73,7 @@ function aplicarEventosPoster()
 			.css('top', offsetImg.top + 250)
 			.css('left', offsetImg.left + 90)
 			.data('serieId', $(this).data('serieid'));
-	});
+	});*/
 }
 
 function retornarSeries(pagina)

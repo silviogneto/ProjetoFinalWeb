@@ -4,33 +4,81 @@ aplicarEventos();
 
 function aplicarEventos()
 {
-	$('#linkAdicionrJaVistos').click(function()
+	var me = this;
+
+	$('#linkAdicionarJaVistas').click(function()
 	{
-		alert('série ' + serieId + ' marcar já vistos');
-
-		var url = 'localhost:8080:arquivojs.js';
-
-		/*$.post(url,{
-			metodo: 'marcarComoJaVisto',
-			serieId: serieid
-		}, function()
-		{
-			//marcar em tela como já visto
-		});*/
+		$.post('/marcarseriejavista', {}, 
+			function()
+			{
+				debugger
+				me.econderExibirOpcoes(true, false);
+			}
+		);
 	});
 
-	$('#linkAdiconarDesejoVer').click(function()
+	$('#linkAdiconarDesejaVer').click(function()
 	{
-		alert('série ' + serieId + ' marcar quero ver');
+		var me = this;
 
-		var url = 'localhost:8080:arquivojs.js';
-
-		/*$.post(url,{
-			metodo: 'marcarComoDesejoVer',
-			serieId: serieid
-		}, function()
-		{
-			//marcar em tela como já deseja ver
-		});*/
+		$.post('/marcarseriedesejover',{}, 
+			function()
+			{
+				me.econderExibirOpcoes(false, true);
+			}
+		);
 	});
+
+	$('#linkRemoverJaVistas').click(function()
+	{
+		var me = this;
+
+		$.post('/removerseriejavista',{}, 
+			function()
+			{
+				me.econderExibirOpcoes(false, false);
+			}
+		);
+	});
+
+	$('#linkRemoverDesejoVer').click(function()
+	{
+		var me = this;
+
+		$.post('/removerseriedesejover',{}, 
+			function()
+			{
+				me.econderExibirOpcoes(false, false);
+			}
+		);
+	});
+}
+
+function econderExibirOpcoes(marcadaJaVista, marcadaDesejoVer)
+{
+	if (marcadaJaVista)
+	{
+		$('#linkAdicionarJaVistas').hide();
+		$('#linkAdiconarDesejaVer').show();
+
+
+		$('#linkRemoverJaVistas').show();
+		$('#linkRemoverDesejoVer').hide();
+	}
+	else if (marcadaDesejoVer)
+	{
+		$('#linkAdicionarJaVistas').show();
+		$('#linkAdiconarDesejaVer').hide();
+
+		$('#linkRemoverJaVistas').show();
+		$('#linkRemoverDesejoVer').hide();
+	}
+	else
+	{
+		$('#linkAdicionarJaVistas').show();
+		$('#linkAdiconarDesejaVer').hide();
+
+		$('#linkRemoverJaVistas').hide();
+		$('#linkRemoverDesejoVer').hide();
+	}
 }
