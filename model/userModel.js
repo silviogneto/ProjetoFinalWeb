@@ -23,7 +23,13 @@ function UserModel() {
 			me.login,
 			me.senha
 		], callback);
-	}
+	};
+
+	this.getAll = function(callback) {
+		var bd = require('./database');
+
+		bd.select('SELECT * FROM usuario', callback);
+	};
 };
 
 module.exports = new UserModel();

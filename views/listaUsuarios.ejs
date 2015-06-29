@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8">
+		
+		<% include includesCSS %>
+
+		<title><%= titulo %></title>
+	</head>
+	<body>
+		<% include headerMenu %>
+
+		<div>
+			<ul>
+				<% usuarios.forEach(function(u) { %>
+					<li><%= u.login %> - <%= u.nome %> - <%= u.email %></li>
+				<% }); %>
+			</ul>
+		</div>
+
+		<% include footer %>
+		<% include includesJS %>
+	</body>
+</html>

@@ -189,6 +189,24 @@ module.exports = function(app) {
 	});
 
 	// controle de usuario
+	app.get('/usuario', function(req, res) {
+		var user = require('./../model/userModel');
+
+		user.getAll(function(rows, fields) {
+			var ls = [];
+
+			for (var i = 0; i < rows.length; i++) {
+				var row = rows[i];
+
+				ls.push({ nome: row.Nome, email: row.Email, login: row.Login });
+			};
+
+			config["usuarios"] = ls;
+
+			res.render('listaUsuarios', config);
+		});
+	});
+
 	app.get('/usuario/novo', function(req, res) {
 		config.homeSelected = '';
 		config.amigosSelected = '';
