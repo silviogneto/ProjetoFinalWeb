@@ -2,6 +2,7 @@
 <!-- js -->
 <script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/bootstrap-notify-master/bootstrap-notify.min.js"></script>
 
 <!-- script controle login -->
 <script type="text/javascript">
@@ -27,13 +28,12 @@
 					withCredentials: true
 				},
 				beforeSend: function() {
-					$('#frmLoginSubmit').attr('disabled', 'disabled');
+					$('#frmLoginSubmit').prop( "disabled", true );
 				}
 			})
 			.done(function(res) {
 				if (typeof res === 'object') {
 					if (res.type == true) {
-						//$('#divUserControl').html(res.html);
 						window.location.reload();
 					}
 					
@@ -43,7 +43,12 @@
 				window.location.href = '/';
 			})
 			.always(function() {
-				//$('#divUserControl').unmask();
+				$('#frmLoginSubmit').prop( "disabled", false );
+
+				$.notify('Usuário e/ou senha incorretos!',{
+					type: 'danger',
+					delay: 3000
+				});
 			});
 		});
 	});
