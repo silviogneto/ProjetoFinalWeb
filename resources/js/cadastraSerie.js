@@ -9,76 +9,70 @@ function aplicarEventos()
 	$('#linkAdicionarJaVistas').click(function()
 	{
 		$.post('/marcarseriejavista', {}, 
-			function()
+			function(data)
 			{
 				debugger
-				me.econderExibirOpcoes(true, false);
+				me.esconderExibirOpcoes(true, false);
 			}
 		);
 	});
 
 	$('#linkAdiconarDesejaVer').click(function()
 	{
-		var me = this;
-
 		$.post('/marcarseriedesejover',{}, 
 			function()
 			{
-				me.econderExibirOpcoes(false, true);
+				me.esconderExibirOpcoes(false, true);
 			}
 		);
 	});
 
 	$('#linkRemoverJaVistas').click(function()
 	{
-		var me = this;
-
 		$.post('/removerseriejavista',{}, 
 			function()
 			{
-				me.econderExibirOpcoes(false, false);
+				me.esconderExibirOpcoes(false, false);
 			}
 		);
 	});
 
 	$('#linkRemoverDesejoVer').click(function()
 	{
-		var me = this;
-
 		$.post('/removerseriedesejover',{}, 
 			function()
 			{
-				me.econderExibirOpcoes(false, false);
+				me.esconderExibirOpcoes(false, false);
 			}
 		);
 	});
 }
 
-function econderExibirOpcoes(marcadaJaVista, marcadaDesejoVer)
+function esconderExibirOpcoes(marcadaJaVista, marcadaDesejoVer)
 {
 	if (marcadaJaVista)
 	{
-		$('#linkAdicionarJaVistas').hide();
+		$('#liAdicionarJaVistas').hide();
 		$('#linkAdiconarDesejaVer').show();
 
 
-		$('#linkRemoverJaVistas').show();
-		$('#linkRemoverDesejoVer').hide();
+		$('#liRemoverJaVistas').show();
+		$('#liRemoverDesejoVer').hide(); 	
 	}
 	else if (marcadaDesejoVer)
 	{
-		$('#linkAdicionarJaVistas').show();
+		$('#liAdicionarJaVistas').show();
 		$('#linkAdiconarDesejaVer').hide();
 
-		$('#linkRemoverJaVistas').show();
-		$('#linkRemoverDesejoVer').hide();
+		$('#liRemoverJaVistas').show();
+		$('#liRemoverDesejoVer').hide();
 	}
 	else
 	{
-		$('#linkAdicionarJaVistas').show();
-		$('#linkAdiconarDesejaVer').hide();
+		$('#liAdicionarJaVistas').show();
+		$('#liAdiconarDesejaVer').hide();
 
-		$('#linkRemoverJaVistas').hide();
-		$('#linkRemoverDesejoVer').hide();
+		$('#liRemoverJaVistas').hide();
+		$('#liRemoverDesejoVer').hide();
 	}
 }

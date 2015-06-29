@@ -1,7 +1,6 @@
 var config = {
 	titulo: 'Projeto Series',
 	homeSelected: '',
-	amigosSelected: '',
 	seriesSelected: '',
 	procuraVisible: '',
 	tipoListagemSerie: 0,
@@ -12,7 +11,6 @@ var config = {
 module.exports = function(app) {
 	app.get(['/', '/index'], function(req, res) {
 		config.homeSelected = 'active';
-		config.amigosSelected = '';
 		config.seriesSelected = '';
 		config.procuraVisible = 'hide';
 		config.usuarioLogado = req.session.logado;
@@ -24,7 +22,6 @@ module.exports = function(app) {
 	app.get('/series', function(req, res) {
 		config.titulo = 'Lista de Séries'
 		config.homeSelected = '';
-		config.amigosSelected = '';
 		config.seriesSelected = 'active';
 		config.procuraVisible = '';
 		config.tipoListagemSerie = 0;
@@ -36,7 +33,6 @@ module.exports = function(app) {
 	app.get('/seriesJaVistas', function(req, res) {
 		config.titulo = 'Lista das Séries já vistas'
 		config.homeSelected = '';
-		config.amigosSelected = '';
 		config.seriesSelected = 'active';
 		config.procuraVisible = '';
 		config.tipoListagemSerie = 1;
@@ -48,7 +44,6 @@ module.exports = function(app) {
 	app.get('/seriesDesejoVer', function(req, res) {
 		config.titulo = 'Lista das Séries que desejo ver'
 		config.homeSelected = '';
-		config.amigosSelected = '';
 		config.seriesSelected = 'active';
 		config.procuraVisible = '';
 		config.tipoListagemSerie = 2;
@@ -75,7 +70,6 @@ module.exports = function(app) {
 
 					config.titulo = 'Série'
 					config.homeSelected = '';
-					config.amigosSelected = '';
 					config.seriesSelected = 'active';
 					config.procuraVisible = 'hide';
 					config.usuarioLogado = req.session.logado;
@@ -180,7 +174,6 @@ module.exports = function(app) {
 
 	app.get('/erroserie', function(req, res) {
 		config.homeSelected = '';
-		config.amigosSelected = '';
 		config.seriesSelected = '';
 		config.procuraVisible = 'hide';
 		config.usuarioLogado = req.session.logado;
@@ -209,7 +202,6 @@ module.exports = function(app) {
 
 	app.get('/usuario/novo', function(req, res) {
 		config.homeSelected = '';
-		config.amigosSelected = '';
 		config.seriesSelected = '';
 		config.procuraVisible = 'hide';
 		config.usuarioLogado = req.session.logado;

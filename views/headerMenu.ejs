@@ -12,18 +12,20 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li class="<%= homeSelected %>"><a href="/">Home</a></li>
-				<li><a href="#">Amigos</a></li>
-				
+				<li class="<%= homeSelected %>"><a href="/">Home</a></li>				
 
-				<li class="dropdown <%= seriesSelected %>">
-         			<a href="/series" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Series<span class="caret"></span></a>
-         			<ul class="dropdown-menu">
-         				<li><a class="active" href="/series">Todas</a></li>
-            			<li><a href="/seriesJaVistas">Já vistas</a></li>
-            			<li><a href="/seriesDesejoVer">Desejo ver</a></li>
-         			</ul>
-        		</li>
+				<% if (usuarioLogado == true) { %>
+					<li class="dropdown <%= seriesSelected %>">
+	         			<a href="/series" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Series<span class="caret"></span></a>
+	         			<ul class="dropdown-menu">
+	         				<li><a class="active" href="/series">Todas</a></li>
+	            			<li><a href="/seriesJaVistas">Já vistas</a></li>
+	            			<li><a href="/seriesDesejoVer">Desejo ver</a></li>
+	         			</ul>
+	        		</li>
+        		<% } else { %>
+        			<li><a class="active" href="/series">Séries</a></li>
+        		<% } %>
         		
 			</ul>
 

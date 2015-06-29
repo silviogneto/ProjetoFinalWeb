@@ -21,16 +21,16 @@
 				<ul>
 					<% if (usuarioLogado) { %>
 						
-						<li>
+						<li id="liAdicionarJaVistas">
 							<a id="linkAdicionarJaVistas" href="#">Adicinar à Já Vistas</a>
 						</li>
-						<li>
+						<li id="liRemoverJaVistas">
 							<a id="linkRemoverJaVistas" href="#">Remover de Já Vistas</a>
 						</li>
-						<li>
+						<li id="liAdiconarDesejoVer">
 							<a id="linkAdiconarDesejoVer" href="#">Adicionar à Desejo Ver</a>
 						</li>
-						<li>
+						<li id="liRemoverDesejoVer">
 							<a id="linkRemoverDesejoVer" href="#">Remover de Desejo Ver</a>
 						</li>
 
@@ -47,7 +47,7 @@
 		<% include includesJS %>
 		<script type="text/javascript" src="/js/cadastraSerie.js"></script>
 		<script type="text/javascript">
-			this.econderExibirOpcoes(!!<%=serie.MarcadaJaVista%>,!!<%=serie.MarcadaDesejoVer%>);
+			this.esconderExibirOpcoes(!!<%=serie.MarcadaJaVista%>,!!<%=serie.MarcadaDesejoVer%>);
 		</script>
 	</body>
 </html>
