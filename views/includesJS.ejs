@@ -27,13 +27,14 @@
 					withCredentials: true
 				},
 				beforeSend: function() {
-					//$('#divUserControl').mask("Validando usuário...");
+					$('#frmLoginSubmit').attr('disabled', 'disabled');
 				}
 			})
 			.done(function(res) {
 				if (typeof res === 'object') {
 					if (res.type == true) {
-						$('#divUserControl').html(res.html);
+						//$('#divUserControl').html(res.html);
+						window.location.reload();
 					}
 					
 					return;
