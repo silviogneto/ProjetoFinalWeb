@@ -35,6 +35,11 @@
 				if (typeof res === 'object') {
 					if (res.type == true) {
 						window.location.reload();
+					} else {
+						$.notify('Usuário e/ou senha incorretos!',{
+							type: 'danger',
+							delay: 3000
+						});
 					}
 					
 					return;
@@ -44,11 +49,6 @@
 			})
 			.always(function() {
 				$('#frmLoginSubmit').prop( "disabled", false );
-
-				$.notify('Usuário e/ou senha incorretos!',{
-					type: 'danger',
-					delay: 3000
-				});
 			});
 		});
 	});

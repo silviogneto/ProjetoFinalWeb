@@ -4,6 +4,7 @@ function UserModel() {
 	this.email = '';
 	this.login = '';
 	this.senha = '';
+	this.isAdmin = false;
 
 	this.validarUsuario = function(usuario, senha, callback) {
 		var bd = require('./database'),
