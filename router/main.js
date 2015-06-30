@@ -3,6 +3,7 @@ var config = {
 	homeSelected: '',
 	seriesSelected: '',
 	procuraVisible: '',
+	idUsuarioLogado: 0,
 	tipoListagemSerie: 0,
 	usuarioLogado: false,
 	serie: {},
@@ -63,7 +64,7 @@ module.exports = function(app) {
 
 		serie.buscarSerie(
 			idSerie,
-			config.idUsarioLogado,
+			config.idUsuarioLogado,
 			function(rows, fields) {
 				if (rows.length > 0)
 				{
@@ -109,7 +110,7 @@ module.exports = function(app) {
 					pagina,
 					qtdRegistros,
 					textoPesquisa,
-					config.idUsarioLogado,
+					config.idUsuarioLogado,
 					function(rows, fields) {
 						res.send('{"serie":' + JSON.stringify(rows) + '}');
 					}
@@ -120,7 +121,7 @@ module.exports = function(app) {
 				serie.buscarListaSeriesDesejoVer(
 					pagina,
 					qtdRegistros,
-					config.idUsarioLogado,
+					config.idUsuarioLogado,
 					textoPesquisa,
 					function(rows, fields) {
 						res.send('{"serie":' + JSON.stringify(rows) + '}');
@@ -135,7 +136,7 @@ module.exports = function(app) {
 		
 		serie.marcarSerieJaVista(
 			config.serie.Id,
-			config.idUsarioLogado,
+			config.idUsuarioLogado,
 			function(rows, fields) {
 				res.send('{"marcouSerie":' + rows.length > 0);
 			}
@@ -147,7 +148,7 @@ module.exports = function(app) {
 		
 		serie.marcarSerieDesejoVer(
 			config.serie.Id,
-			config.idUsarioLogado,
+			config.idUsuarioLogado,
 			function(rows, fields) {
 				res.send('{"marcouSerie":' + rows.length > 0);
 			}
@@ -159,7 +160,7 @@ module.exports = function(app) {
 		
 		serie.removerSerieJaVista(
 			config.serie.Id,
-			config.idUsarioLogado,
+			config.idUsuarioLogado,
 			function(rows, fields) {
 				res.send('{"removeuSerie":' + rows.length > 0);
 			}
@@ -171,7 +172,7 @@ module.exports = function(app) {
 		
 		serie.removerSerieDesejoVer(
 			config.serie.Id,
-			config.idUsarioLogado,
+			config.idUsuarioLogado,
 			function(rows, fields) {
 				res.send('{"removeuSerie":' + rows.length > 0);
 			}
@@ -244,7 +245,7 @@ module.exports = function(app) {
 				sess.user = row.Login;
 				sess.logado = true;
 				sess.isAdmin = (new Buffer(row.IsAdmin, 'binary')[0] == 1);
-				config.idUsarioLogado = row.Id;
+				config.idUsuarioLogado = row.Id;
 
 				config.isAdmin = sess.isAdmin;
 
@@ -257,7 +258,7 @@ module.exports = function(app) {
 				sess.logado = false;
 
 				config.isAdmin = false;
-				config.idUsarioLogado = 0;
+				config.idUsuarioLogado = 0;
 			}
 
 			res.json({
@@ -269,6 +270,7 @@ module.exports = function(app) {
 
 	app.get('/logout', function(req, res) {
 		config.isAdmin = false;
+		config.idUsuarioLogado = 0;
 
 		req.session.destroy(function(err) {
 			if (err) {
