@@ -126,6 +126,8 @@ function SerieModel() {
 
 			if (rows.length === 0)
 			{
+				me.removerSerieDesejoVer(idSerie, idUsuario);
+
 				var query =
 					' INSERT INTO serieJaVista ' +
 					' ( ' +
@@ -142,7 +144,7 @@ function SerieModel() {
 
 				me.executarAlteracao(query, params, callback);
 			}
-		});	
+		});
 	}
 
 	this.marcarSerieDesejoVer = function(idSerie, idUsuario, callback)
@@ -165,6 +167,8 @@ function SerieModel() {
 
 			if (rows.length === 0)
 			{
+				me.removerSerieDesejoVer(idSerie, idUsuario);
+
 				var query =
 					' INSERT INTO serieDesejoVer ' +
 					' ( ' +
@@ -181,73 +185,33 @@ function SerieModel() {
 
 				me.executarAlteracao(query, params, callback);
 			}
-		});	
+		});
 	}
 
 	this.removerSerieJaVista = function(idSerie, idUsuario, callback)
 	{
-		var query = util.format(
-			' SELECT ' +
-				' id ' +
-			' FROM ' +
-				' serieJaVista ' +
+		var query =
+			' DELETE FROM serieJaVista ' +
 			' WHERE ' +
-				' IdUsuario = %d ' +
-				' AND IdSerie = %d ',
-			idUsuario,
-			idSerie
-		);
+				' IdUsuario = ? ' +
+				' AND IdSerie = ? ';
 
-		var me = this;
+		var params = [idUsuario, idSerie];
 
-		this.executarConsulta(query, function(rows, fields) {
-
-			if (rows.length === 1)
-			{
-				var query =
-					' DELETE FROM serieJaVista ' +
-					' WHERE ' +
-						' IdUsuario = ? ' +
-						' AND IdSerie = ? ';
-
-				var params = [idUsuario, idSerie];
-
-				me.executarAlteracao(query, params, callback);
-			}
-		});	
+		this.executarAlteracao(query, params, callback);
 	}
 
 	this.removerSerieDesejoVer = function(idSerie, idUsuario, callback)
 	{
-		var query = util.format(
-			' SELECT ' +
-				' id ' +
-			' FROM ' +
-				' serieDesejoVer ' +
+		var query =
+			' DELETE FROM serieDesejoVer ' +
 			' WHERE ' +
-				' IdUsuario = %d ' +
-				' AND IdSerie = %d ',
-			idUsuario,
-			idSerie
-		);
+				' IdUsuario = ? ' +
+				' AND IdSerie = ? ';
 
-		var me = this;
+		var params = [idUsuario, idSerie];
 
-		this.executarConsulta(query, function(rows, fields) {
-
-			if (rows.length === 1)
-			{
-				var query =
-					' DELETE FROM serieDesejoVer ' +
-					' WHERE ' +
-						' IdUsuario = ? ' +
-						' AND IdSerie = ? ';
-
-				var params = [idUsuario, idSerie];
-
-				me.executarAlteracao(query, params, callback);
-			}
-		});	
+		this.executarAlteracao(query, params, callback);
 	}
 
 	this.executarConsulta = function(query, callback)
