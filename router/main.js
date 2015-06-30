@@ -217,8 +217,47 @@ module.exports = function(app) {
 		});
 	});
 
-	app.get('/usuario/:id', function(req, res) {
+	app.get('/usuario/:usuarioId([0-9]+)', function(req, res) {
+		var user = require('./../model/userModel');
+
+		user.getById(req.params.usuarioId, function(rows, fields) {
+			var row = rows[0];
+
+			config['user'] = {
+				id: row.Id || 0,
+				nome: row.Nome || '',
+				email: row.Email || '',
+				login: row.Login || '',
+				senha: row.Senha || ''
+			};
+
+			res.render('cadastroUsuario', config);
+		});
+	});
+
+	app.put('/usuario/:usuarioId([0-9]+)', function(req, res) {
+		var user = require('./../model/userModel');
+
+		user.id = req.body.id;
+		user.nome = req.body.nome;
+		user.email = req.body.email;
+		user.login = req.body.login;
+
+		if (req.body.senha != '')  {
+			user.senha = req.body.senha;	
+		}
+
+		user.salvarUsuario(function() {
+			res.send(200);
+		});
+	});
+
+	app.delete('/usuario/:usuarioId([0-9]+)', function(req, res) {
+		var user = require('./../model/userModel');
 		
+		user.excluir(req.params.usuarioId, function() {
+			res.send(200);
+		});
 	});
 
 	app.get('/usuario/novo', function(req, res) {
@@ -226,6 +265,14 @@ module.exports = function(app) {
 		config.seriesSelected = '';
 		config.procuraVisible = 'hide';
 		config.usuarioLogado = req.session.logado;
+
+		config['user'] = {
+			id: 0,
+			nome: '',
+			email: '',
+			login: '',
+			senha: ''
+		};
 
 		res.render('cadastroUsuario', config);
 	});

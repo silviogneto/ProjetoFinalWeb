@@ -13,34 +13,40 @@
 		
 		<div id="content" class="content container">
 
-			<form id="frmUsuario">
+			<form id="frmUsuario" <% if (user.id > 0) { %> action="/usuario/<%= user.id %>" <% } %>>
+
+				<input type="hidden" id="inputId" value="<%= user.id %>" />
 
 				<div class="form-group">
 					<label for="inputNome">Nome</label>
-					<input type="text" class="form-control" id="inputNome" placeholder="Nome">
+					<input type="text" class="form-control" id="inputNome" placeholder="Nome" value="<%= user.nome %>" />
 				</div>
 
 				<div class="form-group">
 					<label for="inputEmail">Email</label>
-					<input type="email" class="form-control" id="inputEmail" placeholder="Email">
+					<input type="email" class="form-control" id="inputEmail" placeholder="Email" value="<%= user.email %>" />
 				</div>
 
 				<div class="form-group">
 					<label for="inputLogin">Login</label>
-					<input type="text" class="form-control" id="inputLogin" placeholder="Login">
+					<input type="text" class="form-control" id="inputLogin" placeholder="Login" value="<%= user.login %>" />
 				</div>
 
 				<div class="form-group">
 					<label for="inputSenha">Senha</label>
-					<input type="password" class="form-control" id="inputSenha" placeholder="Senha">
+					<input type="password" class="form-control" id="inputSenha" placeholder="Senha" />
 				</div>
 
 				<div class="form-group">
 					<label for="inputConfirmarSenha">Confirmar Senha</label>
-					<input type="password" class="form-control" id="inputConfirmarSenha" placeholder="Confirmar Senha">
+					<input type="password" class="form-control" id="inputConfirmarSenha" placeholder="Confirmar Senha" />
 				</div>
 
 				<button type="submit" class="btn btn-primary" id="btnSalvar">Salvar</button>
+
+				<% if (user.id > 0) { %>
+				<button class="btn btn-danger" id="btnExcluir">Excluir</button>
+				<% } %>
 
 			</form>
 

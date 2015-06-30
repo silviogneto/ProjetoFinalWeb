@@ -4,7 +4,7 @@ function DBSeries() {
 		connectionLimit: 100,
 		host: 'localhost',
 		user: 'root',
-		password: '1234',
+		password: 'admin',
 		database: 'bd_series'
 	});
 
@@ -30,6 +30,18 @@ function DBSeries() {
 	};
 
 	this.insert = function(sqlQuery, params, callback) {
+		this.updateInsert(sqlQuery, params, callback);
+	}
+
+	this.update = function(sqlQuery, params, callback) {
+		this.updateInsert(sqlQuery, params, callback);
+	}
+
+	this.delete = function(sqlQuery, params, callback) {
+		this.updateInsert(sqlQuery, params, callback);	
+	}
+	
+	this.updateInsert = function(sqlQuery, params, callback) {
 		callback = callback || this.nullHandler;
 
 		this.pool.getConnection(function(err, connection) {
