@@ -10,12 +10,14 @@
 	<body>
 		<% include headerMenu %>
 
-		<div>
-			<ul>
+		<div class="container">
+			<h1>Usuário Cadastrados</h1>
+
+			<div class="list-group">
 				<% usuarios.forEach(function(u) { %>
-					<li><%= u.login %> - <%= u.nome %> - <%= u.email %></li>
+					<a href="/usuario/<%= u.id %>" class="list-group-item"><%= u.nome %> ( <%= u.login %> )</a>
 				<% }); %>
-			</ul>
+			</div>
 		</div>
 
 		<% include footer %>

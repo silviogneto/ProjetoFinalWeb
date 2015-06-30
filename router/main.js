@@ -192,13 +192,17 @@ module.exports = function(app) {
 			for (var i = 0; i < rows.length; i++) {
 				var row = rows[i];
 
-				ls.push({ nome: row.Nome, email: row.Email, login: row.Login });
+				ls.push({ id: row.Id, nome: row.Nome, email: row.Email, login: row.Login });
 			};
 
 			config["usuarios"] = ls;
 
 			res.render('listaUsuarios', config);
 		});
+	});
+
+	app.get('/usuario/:id', function(req, res) {
+		
 	});
 
 	app.get('/usuario/novo', function(req, res) {
