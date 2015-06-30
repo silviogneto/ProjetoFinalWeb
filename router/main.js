@@ -124,7 +124,9 @@ module.exports = function(app) {
 					config.idUsuarioLogado,
 					textoPesquisa,
 					function(rows, fields) {
-						res.send('{"serie":' + JSON.stringify(rows) + '}');
+						res.json({
+							serie: rows.rows
+						});
 					}
 				);
 				break;
@@ -138,7 +140,9 @@ module.exports = function(app) {
 			config.serie.Id,
 			config.idUsuarioLogado,
 			function(rows, fields) {
-				res.send('{"marcouSerie":' + rows.length > 0);
+				res.json({
+					marcouSerie: rows.length > 0
+				});
 			}
 		);		
 	});
@@ -150,7 +154,9 @@ module.exports = function(app) {
 			config.serie.Id,
 			config.idUsuarioLogado,
 			function(rows, fields) {
-				res.send('{"marcouSerie":' + rows.length > 0);
+				res.json({
+					marcouSerie: rows.length > 0
+				});
 			}
 		);		
 	});
@@ -162,7 +168,9 @@ module.exports = function(app) {
 			config.serie.Id,
 			config.idUsuarioLogado,
 			function(rows, fields) {
-				res.send('{"removeuSerie":' + rows.length > 0);
+				res.json({
+					removeuSerie: rows.length > 0
+				});
 			}
 		);		
 	});
@@ -174,7 +182,9 @@ module.exports = function(app) {
 			config.serie.Id,
 			config.idUsuarioLogado,
 			function(rows, fields) {
-				res.send('{"removeuSerie":' + rows.length > 0);
+				res.json({
+					removeuSerie: rows.length > 0
+				});
 			}
 		);
 	});
