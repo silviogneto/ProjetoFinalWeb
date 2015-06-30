@@ -5,7 +5,8 @@ var config = {
 	procuraVisible: '',
 	tipoListagemSerie: 0,
 	usuarioLogado: false,
-	serie : {}
+	serie: {},
+	isAdmin: false
 };
 
 module.exports = function(app) {
@@ -30,7 +31,7 @@ module.exports = function(app) {
 		res.render('listaSeries', config);
 	});
 
-	app.get('/seriesJaVistas', function(req, res) {
+	app.get('/series/vistas', function(req, res) {
 		config.titulo = 'Lista das Séries já vistas'
 		config.homeSelected = '';
 		config.seriesSelected = 'active';
@@ -41,7 +42,7 @@ module.exports = function(app) {
 		res.render('listaSeries', config);
 	});
 
-	app.get('/seriesDesejoVer', function(req, res) {
+	app.get('/series/ver', function(req, res) {
 		config.titulo = 'Lista das Séries que desejo ver'
 		config.homeSelected = '';
 		config.seriesSelected = 'active';
@@ -233,8 +234,10 @@ module.exports = function(app) {
 
 				sess.user = row.Login;
 				sess.logado = true;
-				sess.isAdmin = row.IsAdmin;
+				sess.isAdmin = (new Buffer(row.IsAdmin, 'binary')[0] == 1);
 				config.idUsarioLogado = row.Id;
+
+				config.isAdmin = sess.isAdmin;
 
 				/*html = '<form action="/logout" method="GET" id="frmLogin">'.concat(
 							'<!--div class="form-group"><label>Bem-vindo, Usuario</label></div-->',
@@ -243,6 +246,8 @@ module.exports = function(app) {
 			} else {
 				sess.user = '';
 				sess.logado = false;
+
+				config.isAdmin = false;
 				config.idUsarioLogado = 0;
 			}
 
@@ -254,6 +259,8 @@ module.exports = function(app) {
 	});
 
 	app.get('/logout', function(req, res) {
+		config.isAdmin = false;
+
 		req.session.destroy(function(err) {
 			if (err) {
 				console.log(err);

@@ -1,11 +1,13 @@
 var widthImg 		= 230 + 10,
 	qtdRegistros 	= parseInt($('#content').width() / widthImg) ;
 
-$('#imgOpcoesSerie').hide();
+$(document).ready(function() {
+	$('#imgOpcoesSerie').hide();
 
-aplicarEventos();
-aplicarEventosPoster();
-retornarSeries();
+	aplicarEventos();
+	aplicarEventosPoster();
+	retornarSeries();
+});
 
 function aplicarEventos()
 {

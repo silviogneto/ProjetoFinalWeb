@@ -8,7 +8,7 @@ function UserModel() {
 
 	this.validarUsuario = function(usuario, senha, callback) {
 		var bd = require('./database'),
-			query = 'SELECT Id FROM usuario WHERE Login = "' + usuario + '" and Senha = "' + senha + '"';
+			query = 'SELECT * FROM usuario WHERE Login = "' + usuario + '" and Senha = "' + senha + '"';
 
 		bd.select(query, callback);
 	};

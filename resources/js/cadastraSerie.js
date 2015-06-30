@@ -1,6 +1,8 @@
 var serieId = 0;
 
-aplicarEventos();
+$(document).ready(function() {
+	aplicarEventos();
+});
 
 function aplicarEventos()
 {
