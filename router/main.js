@@ -170,7 +170,7 @@ module.exports = function(app) {
 			function(rows, fields) {
 				res.send('{"removeuSerie":' + rows.length > 0);
 			}
-		);		
+		);
 	});
 
 	app.get('/erroserie', function(req, res) {

@@ -13,13 +13,12 @@ function aplicarEventos()
 		$.post('/marcarseriejavista', {}, 
 			function(data)
 			{
-				debugger
 				me.esconderExibirOpcoes(true, false);
 			}
 		);
 	});
 
-	$('#linkAdiconarDesejaVer').click(function()
+	$('#linkAdicionarDesejoVer').click(function()
 	{
 		$.post('/marcarseriedesejover',{}, 
 			function()
@@ -55,7 +54,7 @@ function esconderExibirOpcoes(marcadaJaVista, marcadaDesejoVer)
 	if (marcadaJaVista)
 	{
 		$('#liAdicionarJaVistas').hide();
-		$('#linkAdiconarDesejaVer').show();
+		$('#liAdicionarDesejoVer').show();
 
 
 		$('#liRemoverJaVistas').show();
@@ -64,15 +63,15 @@ function esconderExibirOpcoes(marcadaJaVista, marcadaDesejoVer)
 	else if (marcadaDesejoVer)
 	{
 		$('#liAdicionarJaVistas').show();
-		$('#linkAdiconarDesejaVer').hide();
+		$('#liAdicionarDesejoVer').hide();
 
-		$('#liRemoverJaVistas').show();
-		$('#liRemoverDesejoVer').hide();
+		$('#liRemoverJaVistas').hide();
+		$('#liRemoverDesejoVer').show();
 	}
 	else
 	{
 		$('#liAdicionarJaVistas').show();
-		$('#liAdiconarDesejaVer').hide();
+		$('#liAdicionarDesejoVer').show();
 
 		$('#liRemoverJaVistas').hide();
 		$('#liRemoverDesejoVer').hide();

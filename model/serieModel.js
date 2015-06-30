@@ -167,7 +167,7 @@ function SerieModel() {
 
 			if (rows.length === 0)
 			{
-				me.removerSerieDesejoVer(idSerie, idUsuario);
+				me.removerSerieJaVista(idSerie, idUsuario);
 
 				var query =
 					' INSERT INTO serieDesejoVer ' +
@@ -210,7 +210,7 @@ function SerieModel() {
 				' AND IdSerie = ? ';
 
 		var params = [idUsuario, idSerie];
-
+		
 		this.executarAlteracao(query, params, callback);
 	}
 
