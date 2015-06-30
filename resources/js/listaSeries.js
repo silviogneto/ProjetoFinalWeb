@@ -1,5 +1,6 @@
 var widthImg 		= 230 + 10,
-	qtdRegistros 	= parseInt($('#content').width() / widthImg) ;
+	qtdRegistros 	= parseInt($('#content').width() / widthImg),
+	textoPesquisa 	= '';
 
 $(document).ready(function() {
 	$('#imgOpcoesSerie').hide();
@@ -21,12 +22,14 @@ function aplicarEventos()
 		{
 			e.preventDefault();
 
-			var textoPesquisa = $(this).val();
+			var texto = $(this).val();
 
-			alert('texto pequisado ' + textoPesquisa);
-
-			//$('#lista-tweets').reset();
-			//retornarSeries(1);
+			if (texto !== textoPesquisa)
+			{
+				textoPesquisa = texto;
+				$('#content').empty();
+				retornarSeries(0);
+			}
 		}
 	});
 }
@@ -82,11 +85,12 @@ function retornarSeries(pagina)
 {
 	$('#carrega-series').hide();
  
- 	var pagina = (pagina > 0) ? pagina : Number($('#carrega-series').data('pagina')) || 0;
+ 	var pagina = (pagina >= 0) ? pagina : Number($('#carrega-series').data('pagina')) || 0;
 
 	$.getJSON('/retornarseries', {
 		pagina: pagina,
-		qtdRegistros: qtdRegistros
+		qtdRegistros: qtdRegistros,
+		textoPesquisa: textoPesquisa
 	}, function(resultado)
 	{
 		var serie;
@@ -96,7 +100,7 @@ function retornarSeries(pagina)
   			serie = resultado.serie[i];
 
    			$('#content').append(
-   				'<img class="poster" data-serieid="' + serie.Id + '" src="/img/series/' + serie.ImgPoster + '" width="230" height="345" alt="' + serie.Nome + '" itemprop="photo">');
+   				'<img class="poster" data-serieid="' + serie.Id + '" src="/img/series/' + serie.ImgPoster + '" width="230" height="345" alt="' + serie.Nome + '" itemprop="photo" />');
    		}
 
  		$(this).remove();

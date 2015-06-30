@@ -32,7 +32,7 @@ function SerieModel() {
 		this.executarConsulta(query, callback);
 	}
 
-	this.buscarListaSeries = function(pagina, qtdRegistros, callback) {
+	this.buscarListaSeries = function(pagina, qtdRegistros, textoPesquisa, callback) {
 
 		var offset = pagina * qtdRegistros,
 			limit = qtdRegistros;
@@ -46,15 +46,17 @@ function SerieModel() {
 				' Ano ' +
 			' FROM ' +
 				' serie ' +
+			' WHERE ' +
+				' Nome LIKE "%' + textoPesquisa + '%" ' +
 			' LIMIT %d,%d ',
 			offset,
 			limit
 		);
-		
+		console.log(query);
 		this.executarConsulta(query, callback);
 	}
 
-	this.buscarListaSeriesJaVistas = function(pagina, qtdRegistros, idUsuario, callback) {
+	this.buscarListaSeriesJaVistas = function(pagina, qtdRegistros, idUsuario, textoPesquisa, callback) {
 
 		var offset = pagina * qtdRegistros,
 			limit = qtdRegistros;
@@ -71,6 +73,7 @@ function SerieModel() {
 				' INNER JOIN serie s ON s.Id = sjv.IdSerie ' +
 			' WHERE ' +
 				' sjv.IdUsuario = %d ' +
+				' AND s.Nome LIKE "%' + textoPesquisa + '%" ' +
 			' LIMIT %d,%d ',
 			idUsuario,
 			offset,
@@ -80,7 +83,7 @@ function SerieModel() {
 		this.executarConsulta(query, callback);
 	}
 
-	this.buscarListaSeriesDesejoVer = function(pagina, qtdRegistros, idUsuario, callback) {
+	this.buscarListaSeriesDesejoVer = function(pagina, qtdRegistros, idUsuario, textoPesquisa, callback) {
 
 		var offset = pagina * qtdRegistros,
 			limit = qtdRegistros;
@@ -95,6 +98,7 @@ function SerieModel() {
 			' FROM ' +
 				' serieDesejoVer sdv' +
 				' INNER JOIN serie s ON s.Id = sdv.IdSerie ' +
+				' AND s.Nome LIKE "%' + textoPesquisa + '%" ' +
 			' WHERE ' +
 				' sdv.IdUsuario = %d ' +
 			' LIMIT %d,%d ',

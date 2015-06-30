@@ -4,7 +4,7 @@ function DBSeries() {
 		connectionLimit: 100,
 		host: 'localhost',
 		user: 'root',
-		password: 'admin',
+		password: '1234',
 		database: 'bd_series'
 	});
 

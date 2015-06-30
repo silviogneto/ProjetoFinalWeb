@@ -88,13 +88,16 @@ module.exports = function(app) {
 	app.get('/retornarseries', function(req, res) {
 		var serie = require('./../model/serieModel'),
 			pagina = Number(req.query.pagina) || 0,
-			qtdRegistros = Number(req.query.qtdRegistros) || 0;
+			qtdRegistros = Number(req.query.qtdRegistros) || 0,
+			textoPesquisa = String(req.query.textoPesquisa);
+
 		switch (config.tipoListagemSerie)
 		{
 			case 0:
 				serie.buscarListaSeries(
 					pagina, 
-					qtdRegistros, 
+					qtdRegistros,
+					textoPesquisa,
 					function(rows, fields) {
 						res.send('{"serie":' + JSON.stringify(rows) + '}');
 					}
@@ -105,6 +108,7 @@ module.exports = function(app) {
 				serie.buscarListaSeriesJaVistas(
 					pagina,
 					qtdRegistros,
+					textoPesquisa,
 					config.idUsarioLogado,
 					function(rows, fields) {
 						res.send('{"serie":' + JSON.stringify(rows) + '}');
@@ -117,6 +121,7 @@ module.exports = function(app) {
 					pagina,
 					qtdRegistros,
 					config.idUsarioLogado,
+					textoPesquisa,
 					function(rows, fields) {
 						res.send('{"serie":' + JSON.stringify(rows) + '}');
 					}
