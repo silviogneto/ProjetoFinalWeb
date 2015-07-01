@@ -393,11 +393,6 @@ module.exports = function(app) {
 				config.idUsuarioLogado = row.Id;
 
 				config.isAdmin = sess.isAdmin;
-
-				/*html = '<form action="/logout" method="GET" id="frmLogin">'.concat(
-							'<!--div class="form-group"><label>Bem-vindo, Usuario</label></div-->',
-							'<input type="submit" class="btn btn-default" id="frmLoginSubmit" value="Log out" />',
-						'</form>');*/
 			} else {
 				sess.user = '';
 				sess.logado = false;
@@ -407,8 +402,7 @@ module.exports = function(app) {
 			}
 
 			res.json({
-				type: sess.logado,
-				//html: html
+				type: sess.logado
 			});
 		});
 	});
