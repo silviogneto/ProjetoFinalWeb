@@ -240,7 +240,8 @@ module.exports = function(app) {
 				nome: row.Nome || '',
 				email: row.Email || '',
 				login: row.Login || '',
-				senha: row.Senha || ''
+				senha: row.Senha || '',
+				imagem: row.Imagem || ''
 			};
 
 			res.render('cadastroUsuario', config);
@@ -320,7 +321,8 @@ module.exports = function(app) {
 			nome: '',
 			email: '',
 			login: '',
-			senha: ''
+			senha: '',
+			imagem: ''
 		};
 
 		res.render('cadastroUsuario', config);
