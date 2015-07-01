@@ -5,6 +5,7 @@
 
 		<% include includesCSS %>
 		<link rel="stylesheet" type="text/css" href="/css/cadastroUsuario.css" />
+		<link rel="stylesheet" type="text/css" href="/kartik-v-bootstrap-fileinput/css/fileinput.min.css" />
 
 		<title><%= titulo %></title>
 	</head>
@@ -42,6 +43,11 @@
 					<input type="password" class="form-control" id="inputConfirmarSenha" placeholder="Confirmar Senha" />
 				</div>
 
+				<div class="form-group">
+					<label for="inputImage">Foto do usuário:</label>
+					<input id="inputImage" type="file" accept="image/*" />
+				</div>
+
 				<button type="submit" class="btn btn-primary" id="btnSalvar">Salvar</button>
 
 				<% if (user.id > 0) { %>
@@ -54,6 +60,9 @@
 		
 		<% include footer %>
 		<% include includesJS %>
+
+		<script type="text/javascript" src="/kartik-v-bootstrap-fileinput/js/fileinput.min.js"></script>
+		<script type="text/javascript" src="/kartik-v-bootstrap-fileinput/js/fileinput._locale_pt-BR.js"></script>
 		<script type="text/javascript" src="/js/cadastroUsuario.js"></script>
 	</body>
 </html>

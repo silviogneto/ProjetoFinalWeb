@@ -73,4 +73,14 @@ $(document).ready(function() {
 			window.location.href = '/usuario';
 		});
 	});
+
+	$('#inputImage').fileinput({
+		previewFileType: "image",
+		maxFileCount: 1,
+		showUpload: false,
+		browseClass: "btn btn-success",
+		browseLabel: "Buscar Imagem",
+		removeClass: "btn btn-danger",
+		removeLabel: "Excluir"
+	});
 });
