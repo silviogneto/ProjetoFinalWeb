@@ -15,10 +15,14 @@
 		<section class="container">
 			<article class="conteudoObjetivo">
 		    	Pra você, amante de seriados, este site é feito única e exclusivamente pra você. Nosso objetivo é possibilitar ao o amante de seriados fazer o controle das séries que ele já viu ou que ainda deseja ver.
-				</br>
-		    	Ainda não é cadastrado? Cadastre-se aqui.
-		    	</br>
-		    	</br>
+
+		    	<% if (!usuarioLogado) { %>
+					</br>
+					</br>
+			    	Ainda não é cadastrado? Cadastre-se <a href="/usuario/novo">aqui</a>
+			    	</br>
+			    	</br>
+			    <% } %>
 			</article>
 
 			<aside class="destaqueUltimasSeries">
