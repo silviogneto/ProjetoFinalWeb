@@ -131,6 +131,18 @@ module.exports = function(app) {
 		}
 	});
 
+	app.get('/retornarultimasseries', function(req, res) {
+		var serie = require('./../model/serieModel'),
+			qtdRegistros = Number(req.query.qtdRegistros) || 0;
+
+		serie.buscarListaUltimasSeries(
+			qtdRegistros,
+			function(rows, fields) {
+				res.send('{"serie":' + JSON.stringify(rows) + '}');
+			}
+		);
+	});
+
 	app.post('/marcarseriejavista', function(req, res) {
 		var serie = require('./../model/serieModel');
 		

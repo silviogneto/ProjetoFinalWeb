@@ -106,7 +106,27 @@ function SerieModel() {
 			offset,
 			limit
 		);
-console.log(query);
+
+		this.executarConsulta(query, callback);
+	}
+
+	this.buscarListaUltimasSeries = function(qtdRegistros, callback)
+	{
+		var	query = util.format(
+			' SELECT ' +
+				' Id, ' +
+				' Nome, ' +
+				' Descricao, ' +
+				' ImgPoster, ' +
+				' Ano ' +
+			' FROM ' +
+				' serie ' +
+			' ORDER BY ' +
+				' Id DESC ' +
+			' LIMIT 0, %d ',
+			qtdRegistros
+		);
+		
 		this.executarConsulta(query, callback);
 	}
 

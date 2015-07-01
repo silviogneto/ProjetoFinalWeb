@@ -5,16 +5,31 @@
 		<!--link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css' /-->
 		<% include includesCSS %>
 		
+		<link rel="stylesheet" type="text/css" href="/css/index.css" />
+
 		<title><%= titulo %></title>
 	</head>
 	<body>
 		<% include headerMenu %>
 
-		<div class="container">
-			Conteudo do site
-		</div>
+		<section class="container">
+			<article class="conteudoObjetivo">
+		    	Pra você, amante de seriados, este site é feito única e exclusivamente pra você. Nosso objetivo é possibilitar ao o amante de seriados fazer o controle das séries que ele já viu ou que ainda deseja ver.
+				</br>
+		    	Ainda não é cadastrado? Cadastre-se aqui.
+		    	</br>
+		    	</br>
+			</article>
+
+			<aside class="destaqueUltimasSeries">
+				Ùltimas séries adicionadas..
+				</br>
+			</aside>
+		</section>
 		
 		<% include footer %>
 		<% include includesJS %>
+
+		<script type="text/javascript" src="/js/index.js"></script>
 	</body>
 </html>
