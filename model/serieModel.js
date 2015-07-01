@@ -47,12 +47,12 @@ function SerieModel() {
 			' FROM ' +
 				' serie ' +
 			' WHERE ' +
-				' Nome LIKE "%' + textoPesquisa + '%" ' +
+				' Nome LIKE "%%' + textoPesquisa + '%" ' +
 			' LIMIT %d,%d ',
 			offset,
 			limit
 		);
-		console.log(query);
+		
 		this.executarConsulta(query, callback);
 	}
 
@@ -73,7 +73,7 @@ function SerieModel() {
 				' INNER JOIN serie s ON s.Id = sjv.IdSerie ' +
 			' WHERE ' +
 				' sjv.IdUsuario = %d ' +
-				' AND s.Nome LIKE "%' + textoPesquisa + '%" ' +
+				' AND s.Nome LIKE "%%' + textoPesquisa + '%" ' +
 			' LIMIT %d,%d ',
 			idUsuario,
 			offset,
@@ -98,7 +98,7 @@ function SerieModel() {
 			' FROM ' +
 				' serieDesejoVer sdv' +
 				' INNER JOIN serie s ON s.Id = sdv.IdSerie ' +
-				' AND s.Nome LIKE "%' + textoPesquisa + '%" ' +
+				' AND s.Nome LIKE "%%' + textoPesquisa + '%" ' +
 			' WHERE ' +
 				' sdv.IdUsuario = %d ' +
 			' LIMIT %d,%d ',
@@ -106,7 +106,7 @@ function SerieModel() {
 			offset,
 			limit
 		);
-
+console.log(query);
 		this.executarConsulta(query, callback);
 	}
 

@@ -109,8 +109,8 @@ module.exports = function(app) {
 				serie.buscarListaSeriesJaVistas(
 					pagina,
 					qtdRegistros,
-					textoPesquisa,
 					config.idUsuarioLogado,
+					textoPesquisa,
 					function(rows, fields) {
 						res.send('{"serie":' + JSON.stringify(rows) + '}');
 					}
@@ -124,9 +124,7 @@ module.exports = function(app) {
 					config.idUsuarioLogado,
 					textoPesquisa,
 					function(rows, fields) {
-						res.json({
-							serie: rows.rows
-						});
+						res.send('{"serie":' + JSON.stringify(rows) + '}');
 					}
 				);
 				break;
