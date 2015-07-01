@@ -1,14 +1,16 @@
 var config = {
-	titulo: 'Projeto Series',
-	homeSelected: '',
-	seriesSelected: '',
-	procuraVisible: '',
-	idUsuarioLogado: 0,
-	tipoListagemSerie: 0,
-	usuarioLogado: false,
-	serie: {},
-	isAdmin: false
-};
+		titulo: 'Projeto Series',
+		homeSelected: '',
+		seriesSelected: '',
+		procuraVisible: '',
+		idUsuarioLogado: 0,
+		tipoListagemSerie: 0,
+		usuarioLogado: false,
+		serie: {},
+		isAdmin: false
+	},
+	formidable = require('formidable'),
+	fs = require('fs');
 
 module.exports = function(app) {
 	app.get(['/', '/index'], function(req, res) {
@@ -246,19 +248,56 @@ module.exports = function(app) {
 	});
 
 	app.put('/usuario/:usuarioId([0-9]+)', function(req, res) {
-		var user = require('./../model/userModel');
+		var form = new formidable.IncomingForm();
 
-		user.id = req.body.id;
-		user.nome = req.body.nome;
-		user.email = req.body.email;
-		user.login = req.body.login;
+		form.parse(req, function(err, fields, files) {
+			var image = files.image,
+				image_upload_path_old = image.path,
+				image_upload_path_new = __dirname + './../resources/img/usuario/',
+				image_upload_name = image.name,
+				image_upload_path_name = image_upload_path_new + image_upload_name;
 
-		if (req.body.senha != '')  {
-			user.senha = req.body.senha;	
-		}
+			var fnAdd = function() {
+				fs.rename(image_upload_path_old, image_upload_path_name, function (err) {
+					if (err) {
+						console.log('Err: ', err);
+					}
 
-		user.salvarUsuario(function() {
-			res.send(200);
+					var user = require('./../model/userModel');
+
+					user.id = fields.id;
+					user.nome = fields.nome;
+					user.email = fields.email;
+					user.login = fields.login;
+					user.imagem = image_upload_name;
+
+					if (req.body.senha != '')  {
+						user.senha = req.body.senha;	
+					}
+
+					user.salvarUsuario(function() {
+						res.send(200);
+					});
+				});
+			};
+
+			if (image_upload_name == '') {
+				fnAdd();
+				return;
+			}
+
+			if (fs.existsSync(image_upload_path_new)) {
+				fnAdd();
+			} else {
+				fs.mkdir(image_upload_path_new, function (err) {
+					if (err) {
+						console.log('Err: ', err);
+						res.end('Deu merda na hora de criar o diretório!');
+					}
+
+					fnAdd();
+				});
+			}
 		});
 	});
 
@@ -288,15 +327,54 @@ module.exports = function(app) {
 	});
 
 	app.put('/usuario/novo', function(req, res) {
-		var user = require('./../model/userModel');
+		var form = new formidable.IncomingForm();
 
-		user.nome = req.body.nome;
-		user.email = req.body.email;
-		user.login = req.body.login;
-		user.senha = req.body.senha;
+		form.parse(req, function(err, fields, files) {
+			var image = files.image,
+				image_upload_path_old = image.path,
+				image_upload_path_new = __dirname + './../resources/img/usuario/',
+				image_upload_name = image.name,
+				image_upload_path_name = image_upload_path_new + image_upload_name;
 
-		user.salvarUsuario(function() {
-			res.send(200);
+			console.log(fields);
+
+			var fnAdd = function() {
+				fs.rename(image_upload_path_old, image_upload_path_name, function (err) {
+					if (err) {
+						console.log('Err: ', err);
+					}
+
+					var user = require('./../model/userModel');
+
+					user.nome = fields.nome;
+					user.email = fields.email;
+					user.login = fields.login;
+					user.senha = fields.senha;
+					user.imagem = image_upload_name;
+
+					user.salvarUsuario(function() {
+						res.send(200);
+					});
+				});
+			};
+
+			if (image_upload_name == '') {
+				fnAdd();
+				return;
+			}
+
+			if (fs.existsSync(image_upload_path_new)) {
+				fnAdd();
+			} else {
+				fs.mkdir(image_upload_path_new, function (err) {
+					if (err) {
+						console.log('Err: ', err);
+						res.end('Deu merda na hora de criar o diretório!');
+					}
+
+					fnAdd();
+				});
+			}
 		});
 	});
 

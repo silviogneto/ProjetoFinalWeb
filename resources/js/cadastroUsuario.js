@@ -16,16 +16,32 @@ $(document).ready(function() {
 			return;
 		}
 
+		var data = new FormData($(this)[0]);
+		/*jQuery.each(jQuery('#inputImage')[0].files, function(i, file) {
+			data.append('file' + i, file);
+		});
+
+		data.append(id, id);
+		data.append(nome, nome);
+		data.append(email, email);
+		data.append(login, login);
+		data.append(senha, senha);*/
+
+		/*data: {
+			id: id,
+			nome: nome,
+			email: email,
+			login: login,
+			senha: senha
+		},*/
+
 		$.ajax({
 			url: frm.attr('action'),
 			method: 'PUT',
-			data: {
-				id: id,
-				nome: nome,
-				email: email,
-				login: login,
-				senha: senha
-			},
+			data: data,
+    		cache: false,
+			contentType: false,
+			processData: false,
 			xhrFields: {
 				withCredentials: true
 			},
@@ -78,7 +94,6 @@ $(document).ready(function() {
 		previewFileType: "image",
 		maxFileCount: 1,
 		showUpload: false,
-		browseClass: "btn btn-success",
 		browseLabel: "Buscar Imagem",
 		removeClass: "btn btn-danger",
 		removeLabel: "Excluir"

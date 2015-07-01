@@ -2,6 +2,7 @@ function UserModel() {
 	this.id = 0;
 	this.nome = '';
 	this.email = '';
+	this.imagem = '';
 	this.login = '';
 	this.senha = '';
 	this.isAdmin = false;
@@ -19,8 +20,13 @@ function UserModel() {
 			query;
 
 		if (me.id > 0) {
-			query = 'UPDATE usuario SET Nome = ?, Email = ?, Login = ?',
-			params = [ me.nome, me.email, me.login ]
+			query = 'UPDATE usuario SET Nome = ?, Email = ?, Login = ?';
+			params = [ me.nome, me.email, me.login ];
+
+			if (me.imagem != '') {
+				query = query.concat(', Imagem = ?');
+				params.push(me.imagem);
+			}
 
 			if (me.senha != '') {
 				query = query.concat(', Senha = ?');
@@ -32,14 +38,24 @@ function UserModel() {
 
 			bd.update(query, params, callback);
 		} else {
-			query = 'INSERT INTO usuario (Nome, Email, Login, Senha) VALUES (?, ?, ?, ?)';
-
-			bd.insert(query, [
+			query = 'INSERT INTO usuario (Nome, Email, Login, Senha';
+			queryValues = ') VALUES (?, ?, ?, ?';
+			params = [
 				me.nome,
 				me.email,
 				me.login,
 				me.senha
-			], callback);	
+			];
+
+			if (me.imagem != '') {
+				query = query.concat(', Imagem');
+				queryValues = queryValues.concat(', ?');
+				params.push(me.imagem);
+			}
+
+			queryValues = queryValues.concat(')');
+
+			bd.insert(query.concat(queryValues), params, callback);
 		}
 	};
 

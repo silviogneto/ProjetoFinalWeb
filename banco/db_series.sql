@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `seriejavista` (
   KEY `serieJaVista_IdSerie_serie_id` (`IdSerie`),
   CONSTRAINT `seriejavista_ibfk_1` FOREIGN KEY (`IdUsuario`) REFERENCES `usuario` (`Id`) ON DELETE CASCADE,
   CONSTRAINT `seriejavista_ibfk_2` FOREIGN KEY (`IdSerie`) REFERENCES `serie` (`Id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela bd_series.seriejavista: ~0 rows (aproximadamente)
 DELETE FROM `seriejavista`;
@@ -89,19 +89,22 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Nome` varchar(100) NOT NULL DEFAULT '0',
   `Email` varchar(100) DEFAULT NULL,
+  `Imagem` varchar(200) DEFAULT NULL,
   `Login` varchar(40) NOT NULL DEFAULT '0',
   `Senha` varchar(40) NOT NULL DEFAULT '0',
   `IsAdmin` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Login` (`Login`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela bd_series.usuario: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela bd_series.usuario: ~2 rows (aproximadamente)
 DELETE FROM `usuario`;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` (`Id`, `Nome`, `Email`, `Login`, `Senha`, `IsAdmin`) VALUES
-	(1, 'Silvio', NULL, 'silvio', '123456', b'0'),
-	(2, 'Henrique', NULL, 'henrique', '123456', b'0');
+INSERT INTO `usuario` (`Id`, `Nome`, `Email`, `Imagem`, `Login`, `Senha`, `IsAdmin`) VALUES
+	(1, 'Silvio', NULL, NULL, 'silvio', '123456', b'0'),
+	(2, 'Henrique', NULL, NULL, 'henrique', '123456', b'0'),
+	(9, 'Mantenedor', NULL, NULL, 'mantenedor', 'admin', b'1'),
+	(10, 'testes', 't@t.com', 'especificacao_home.png', 'a', '123', b'0');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
