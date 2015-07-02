@@ -18,7 +18,7 @@ function getConfigBySession(sess) {
 		titulo: '',
 		lastPage: sess.lastPage,
 		idUsuarioLogado: sess.idUsuario,
-		usuarioLogado: sess.logado,
+		usuarioLogado: sess.logado || false,
 		isAdmin: sess.isAdmin
 	};
 };
@@ -232,20 +232,24 @@ module.exports = function(app) {
 
 		sess.lastPage = 'usuario';
 
-		user.getAll(function(rows, fields) {
-			var ls = [],
-				config = getConfigBySession(sess);
+		if (sess.logado && sess.isAdmin) {
+			user.getAll(function(rows, fields) {
+				var ls = [],
+					config = getConfigBySession(sess);
 
-			for (var i = 0; i < rows.length; i++) {
-				var row = rows[i];
+				for (var i = 0; i < rows.length; i++) {
+					var row = rows[i];
 
-				ls.push({ id: row.Id, nome: row.Nome, email: row.Email, login: row.Login });
-			};
+					ls.push({ id: row.Id, nome: row.Nome, email: row.Email, login: row.Login });
+				};
 
-			config["usuarios"] = ls;
+				config["usuarios"] = ls;
 
-			res.render('listaUsuarios', config);
-		});
+				res.render('listaUsuarios', config);
+			});
+		} else {
+			res.sendStatus(403);
+		}
 	});
 
 	app.get('/usuario/novo', function(req, res) {
@@ -324,21 +328,25 @@ module.exports = function(app) {
 
 		sess.lastPage = '';;
 
-		user.getById(req.params.usuarioId, function(rows, fields) {
-			var row = rows[0],
-				config = getConfigBySession(sess);
-			
-			config['user'] = {
-				id: row.Id || 0,
-				nome: row.Nome || '',
-				email: row.Email || '',
-				login: row.Login || '',
-				senha: row.Senha || '',
-				imagem: row.Imagem || ''
-			};
+		if (sess.logado && sess.idUsuario == req.params.usuarioId) {
+			user.getById(req.params.usuarioId, function(rows, fields) {
+				var row = rows[0],
+					config = getConfigBySession(sess);
 
-			res.render('cadastroUsuario', config);
-		});
+				config['user'] = {
+					id: row.Id || 0,
+					nome: row.Nome || '',
+					email: row.Email || '',
+					login: row.Login || '',
+					senha: row.Senha || '',
+					imagem: row.Imagem || ''
+				};
+
+				res.render('cadastroUsuario', config);
+			});
+		} else {
+			res.sendStatus(403);
+		}
 	});
 
 	app.put('/usuario/:usuarioId', function(req, res) {
