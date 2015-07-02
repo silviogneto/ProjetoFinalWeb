@@ -12,71 +12,94 @@ var config = {
 	formidable = require('formidable'),
 	fs = require('fs');
 
+// retorna a configuração da pagina por sessao
+function getConfigBySession(sess) {
+	return {
+		titulo: '',
+		lastPage: sess.lastPage,
+		idUsuarioLogado: sess.idUsuario,
+		usuarioLogado: sess.logado,
+		isAdmin: sess.isAdmin
+	};
+};
+
 module.exports = function(app) {
 	app.get(['/', '/index'], function(req, res) {
-		config.homeSelected = 'active';
-		config.seriesSelected = '';
-		config.procuraVisible = 'hide';
-		config.usuarioLogado = req.session.logado;
+		var sess = req.session;
+		sess.lastPage = 'home';
 
-		res.render('index', config);
+		res.render('index', getConfigBySession(sess));
 	});
 
 	// parte das series
 	app.get('/series', function(req, res) {
-		config.titulo = 'Lista de Séries'
-		config.homeSelected = '';
-		config.seriesSelected = 'active';
-		config.procuraVisible = '';
-		config.tipoListagemSerie = 0;
-		config.usuarioLogado = req.session.logado;
+		var sess = req.session;
+		sess.lastPage = 'series';
+
+		var config = getConfigBySession(sess);
+
+		config.titulo = 'Lista de Séries';
+		config['tipoListagemSerie'] = 0;
 
 		res.render('listaSeries', config);
 	});
 
 	app.get('/series/vistas', function(req, res) {
-		config.titulo = 'Lista das Séries já vistas'
-		config.homeSelected = '';
-		config.seriesSelected = 'active';
-		config.procuraVisible = '';
-		config.tipoListagemSerie = 1;
-		config.usuarioLogado = req.session.logado;
+		var sess = req.session;
+		sess.lastPage = 'series';
+
+		var config = getConfigBySession(sess);
+
+		config.titulo = 'Lista das Séries já vistas';
+		config['tipoListagemSerie'] = 1;
 
 		res.render('listaSeries', config);
 	});
 
 	app.get('/series/ver', function(req, res) {
-		config.titulo = 'Lista das Séries que desejo ver'
-		config.homeSelected = '';
-		config.seriesSelected = 'active';
-		config.procuraVisible = '';
-		config.tipoListagemSerie = 2;
-		config.usuarioLogado = req.session.logado;
+		var sess = req.session;
+		sess.lastPage = 'series';
+
+		var config = getConfigBySession(sess);
+
+		config.titulo = 'Lista das Séries que desejo ver';
+		config['tipoListagemSerie'] = 2;
 
 		res.render('listaSeries', config);
 	});
 
-	app.get('/series/:serieId', function(req, res) {
-		// the user was found and is available in req.user
-		//res.send('Não implementado');
-		//res.redirect('/erroserie');
-
+	app.get('/series/destaques', function(req, res) {
 		var serie = require('./../model/serieModel'),
-			idSerie = Number(req.params.serieId) || 0;
+			qtdRegistros = Number(req.query.qtdRegistros) || 0;
+
+		serie.buscarListaUltimasSeries(
+			qtdRegistros,
+			function(rows, fields) {
+				res.json({
+					serie: rows
+				});
+			}
+		);
+	});
+
+	app.get('/series/:serieId', function(req, res) {
+		var sess = req.session,
+			serie = require('./../model/serieModel'),
+			idSerie = Number(req.params.serieId) || 0,
+			logado = sess.idUsuario || 0;
+
+		sess.lastPage = 'series';
 
 		serie.buscarSerie(
 			idSerie,
-			config.idUsuarioLogado,
+			logado,
 			function(rows, fields) {
 				if (rows.length > 0)
 				{
-					config.serie = rows[0];
+					var config = getConfigBySession(sess);
 
-					config.titulo = 'Série'
-					config.homeSelected = '';
-					config.seriesSelected = 'active';
-					config.procuraVisible = 'hide';
-					config.usuarioLogado = req.session.logado;
+					config['serie'] = rows[0];
+					config.titulo = 'Série';
 
 					res.render('cadastraSerie', config);
 				}
@@ -102,7 +125,9 @@ module.exports = function(app) {
 					qtdRegistros,
 					textoPesquisa,
 					function(rows, fields) {
-						res.send('{"serie":' + JSON.stringify(rows) + '}');
+						res.json({
+							serie: rows
+						});
 					}
 				);
 				break;
@@ -114,7 +139,9 @@ module.exports = function(app) {
 					config.idUsuarioLogado,
 					textoPesquisa,
 					function(rows, fields) {
-						res.send('{"serie":' + JSON.stringify(rows) + '}');
+						res.json({
+							serie: rows
+						});
 					}
 				);
 				break;
@@ -126,23 +153,13 @@ module.exports = function(app) {
 					config.idUsuarioLogado,
 					textoPesquisa,
 					function(rows, fields) {
-						res.send('{"serie":' + JSON.stringify(rows) + '}');
+						res.json({
+							serie: rows
+						});
 					}
 				);
 				break;
 		}
-	});
-
-	app.get('/retornarultimasseries', function(req, res) {
-		var serie = require('./../model/serieModel'),
-			qtdRegistros = Number(req.query.qtdRegistros) || 0;
-
-		serie.buscarListaUltimasSeries(
-			qtdRegistros,
-			function(rows, fields) {
-				res.send('{"serie":' + JSON.stringify(rows) + '}');
-			}
-		);
 	});
 
 	app.post('/marcarseriejavista', function(req, res) {
@@ -202,20 +219,22 @@ module.exports = function(app) {
 	});
 
 	app.get('/erroserie', function(req, res) {
-		config.homeSelected = '';
-		config.seriesSelected = '';
-		config.procuraVisible = 'hide';
-		config.usuarioLogado = req.session.logado;
+		var sess = req.session;
+		sess.lastPage = '';
 
-		res.render('serieNaoEncontrada', config);
+		res.render('serieNaoEncontrada', getConfigBySession(sess));
 	});
 
 	// controle de usuario
 	app.get('/usuario', function(req, res) {
-		var user = require('./../model/userModel');
+		var sess = req.session,
+			user = require('./../model/userModel');
+
+		sess.lastPage = 'usuario';
 
 		user.getAll(function(rows, fields) {
-			var ls = [];
+			var ls = [],
+				config = getConfigBySession(sess);
 
 			for (var i = 0; i < rows.length; i++) {
 				var row = rows[i];
@@ -229,92 +248,11 @@ module.exports = function(app) {
 		});
 	});
 
-	app.get('/usuario/:usuarioId([0-9]+)', function(req, res) {
-		var user = require('./../model/userModel');
-
-		user.getById(req.params.usuarioId, function(rows, fields) {
-			var row = rows[0];
-
-			config['user'] = {
-				id: row.Id || 0,
-				nome: row.Nome || '',
-				email: row.Email || '',
-				login: row.Login || '',
-				senha: row.Senha || '',
-				imagem: row.Imagem || ''
-			};
-
-			res.render('cadastroUsuario', config);
-		});
-	});
-
-	app.put('/usuario/:usuarioId([0-9]+)', function(req, res) {
-		var form = new formidable.IncomingForm();
-
-		form.parse(req, function(err, fields, files) {
-			var image = files.image,
-				image_upload_path_old = image.path,
-				image_upload_path_new = __dirname + './../resources/img/usuario/',
-				image_upload_name = image.name,
-				image_upload_path_name = image_upload_path_new + image_upload_name;
-
-			var fnAdd = function() {
-				fs.rename(image_upload_path_old, image_upload_path_name, function (err) {
-					if (err) {
-						console.log('Err: ', err);
-					}
-
-					var user = require('./../model/userModel');
-
-					user.id = fields.id;
-					user.nome = fields.nome;
-					user.email = fields.email;
-					user.login = fields.login;
-					user.imagem = image_upload_name;
-
-					if (req.body.senha != '')  {
-						user.senha = req.body.senha;	
-					}
-
-					user.salvarUsuario(function() {
-						res.send(200);
-					});
-				});
-			};
-
-			if (image_upload_name == '') {
-				fnAdd();
-				return;
-			}
-
-			if (fs.existsSync(image_upload_path_new)) {
-				fnAdd();
-			} else {
-				fs.mkdir(image_upload_path_new, function (err) {
-					if (err) {
-						console.log('Err: ', err);
-						res.end('Deu merda na hora de criar o diretório!');
-					}
-
-					fnAdd();
-				});
-			}
-		});
-	});
-
-	app.delete('/usuario/:usuarioId([0-9]+)', function(req, res) {
-		var user = require('./../model/userModel');
-		
-		user.excluir(req.params.usuarioId, function() {
-			res.send(200);
-		});
-	});
-
 	app.get('/usuario/novo', function(req, res) {
-		config.homeSelected = '';
-		config.seriesSelected = '';
-		config.procuraVisible = 'hide';
-		config.usuarioLogado = req.session.logado;
+		var sess = req.session;
+		sess.lastPage = '';
+
+		var config = getConfigBySession(sess);
 
 		config['user'] = {
 			id: 0,
@@ -377,6 +315,91 @@ module.exports = function(app) {
 					fnAdd();
 				});
 			}
+		});
+	});
+
+	app.get('/usuario/:usuarioId', function(req, res) {
+		var user = require('./../model/userModel'),
+			sess = req.session;
+
+		sess.lastPage = '';;
+
+		user.getById(req.params.usuarioId, function(rows, fields) {
+			var row = rows[0],
+				config = getConfigBySession(sess);
+			
+			config['user'] = {
+				id: row.Id || 0,
+				nome: row.Nome || '',
+				email: row.Email || '',
+				login: row.Login || '',
+				senha: row.Senha || '',
+				imagem: row.Imagem || ''
+			};
+
+			res.render('cadastroUsuario', config);
+		});
+	});
+
+	app.put('/usuario/:usuarioId', function(req, res) {
+		var form = new formidable.IncomingForm();
+
+		form.parse(req, function(err, fields, files) {
+			var image = files.image,
+				image_upload_path_old = image.path,
+				image_upload_path_new = __dirname + './../resources/img/usuario/',
+				image_upload_name = image.name,
+				image_upload_path_name = image_upload_path_new + image_upload_name;
+
+			var fnAdd = function() {
+				fs.rename(image_upload_path_old, image_upload_path_name, function (err) {
+					if (err) {
+						console.log('Err: ', err);
+					}
+
+					var user = require('./../model/userModel');
+
+					user.id = fields.id;
+					user.nome = fields.nome;
+					user.email = fields.email;
+					user.login = fields.login;
+					user.imagem = image_upload_name;
+
+					if (req.body.senha != '')  {
+						user.senha = req.body.senha;	
+					}
+
+					user.salvarUsuario(function() {
+						res.send(200);
+					});
+				});
+			};
+
+			if (image_upload_name == '') {
+				fnAdd();
+				return;
+			}
+
+			if (fs.existsSync(image_upload_path_new)) {
+				fnAdd();
+			} else {
+				fs.mkdir(image_upload_path_new, function (err) {
+					if (err) {
+						console.log('Err: ', err);
+						res.end('Deu merda na hora de criar o diretório!');
+					}
+
+					fnAdd();
+				});
+			}
+		});
+	});
+
+	app.delete('/usuario/:usuarioId', function(req, res) {
+		var user = require('./../model/userModel');
+		
+		user.excluir(req.params.usuarioId, function() {
+			res.send(200);
 		});
 	});
 

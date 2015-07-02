@@ -7,7 +7,7 @@ $(document).ready(function() {
 
 function retornarSeries()
 {
-	$.getJSON('/retornarultimasseries', {
+	$.getJSON('/series/destaques', {
 		qtdRegistros: qtdRegistros
 	}, function(resultado)
 	{
