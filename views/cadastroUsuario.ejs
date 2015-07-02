@@ -13,49 +13,59 @@
 		<% include headerMenu %>
 		
 		<div id="content" class="content container">
-
 			<form id="frmUsuario" <% if (user.id > 0) { %> action="/usuario/<%= user.id %>" <% } %>>
+				<div class="row">
+					<div class="col-md-6">
 
-				<input type="hidden" id="inputId" value="<%= user.id %>" name="id" />
+						<div class="form-group">
+							<img class="img-thumbnail" src="/img/<% if (user.imagem == '') { %>empty_user.jpg<% } else { %>usuario/<%= user.imagem %><% } %>" width="200" height="200" />
+						</div>
 
-				<div class="form-group">
-					<label for="inputNome">Nome</label>
-					<input type="text" class="form-control" id="inputNome" placeholder="Nome" value="<%= user.nome %>" name="nome" />
+						<div class="form-group">
+							<label for="inputImage">Foto do usuário:</label>
+							<input id="inputImage" type="file" accept="image/*" name="image" data-show-preview="false" />
+						</div>
+
+					</div>
+
+					<div class="col-md-6">
+
+						<input type="hidden" id="inputId" value="<%= user.id %>" name="id" />
+
+						<div class="form-group">
+							<label for="inputNome">Nome</label>
+							<input type="text" class="form-control" id="inputNome" placeholder="Nome" value="<%= user.nome %>" name="nome" />
+						</div>
+
+						<div class="form-group">
+							<label for="inputEmail">Email</label>
+							<input type="email" class="form-control" id="inputEmail" placeholder="Email" value="<%= user.email %>" name="email" />
+						</div>
+
+						<div class="form-group">
+							<label for="inputLogin">Login</label>
+							<input type="text" class="form-control" id="inputLogin" placeholder="Login" value="<%= user.login %>" name="login" />
+						</div>
+
+						<div class="form-group">
+							<label for="inputSenha">Senha</label>
+							<input type="password" class="form-control" id="inputSenha" placeholder="Senha" name="senha" />
+						</div>
+
+						<div class="form-group">
+							<label for="inputConfirmarSenha">Confirmar Senha</label>
+							<input type="password" class="form-control" id="inputConfirmarSenha" placeholder="Confirmar Senha" />
+						</div>
+
+						<button type="submit" class="btn btn-primary" id="btnSalvar">Salvar</button>
+
+						<% if (user.id > 0 && isAdmin) { %>
+						<button class="btn btn-danger" id="btnExcluir">Excluir</button>
+						<% } %>
+
+					</div>
 				</div>
-
-				<div class="form-group">
-					<label for="inputEmail">Email</label>
-					<input type="email" class="form-control" id="inputEmail" placeholder="Email" value="<%= user.email %>" name="email" />
-				</div>
-
-				<div class="form-group">
-					<label for="inputLogin">Login</label>
-					<input type="text" class="form-control" id="inputLogin" placeholder="Login" value="<%= user.login %>" name="login" />
-				</div>
-
-				<div class="form-group">
-					<label for="inputSenha">Senha</label>
-					<input type="password" class="form-control" id="inputSenha" placeholder="Senha" name="senha" />
-				</div>
-
-				<div class="form-group">
-					<label for="inputConfirmarSenha">Confirmar Senha</label>
-					<input type="password" class="form-control" id="inputConfirmarSenha" placeholder="Confirmar Senha" />
-				</div>
-
-				<div class="form-group">
-					<label for="inputImage">Foto do usuário:</label>
-					<input id="inputImage" type="file" accept="image/*" name="image" />
-				</div>
-
-				<button type="submit" class="btn btn-primary" id="btnSalvar">Salvar</button>
-
-				<% if (user.id > 0) { %>
-				<button class="btn btn-danger" id="btnExcluir">Excluir</button>
-				<% } %>
-
 			</form>
-
 		</div>
 		
 		<% include footer %>

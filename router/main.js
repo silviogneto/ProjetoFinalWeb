@@ -1,15 +1,4 @@
-var config = {
-		titulo: 'Projeto Series',
-		homeSelected: '',
-		seriesSelected: '',
-		procuraVisible: '',
-		idUsuarioLogado: 0,
-		tipoListagemSerie: 0,
-		usuarioLogado: false,
-		serie: {},
-		isAdmin: false
-	},
-	formidable = require('formidable'),
+var formidable = require('formidable'),
 	fs = require('fs');
 
 // retorna a configuração da pagina por sessao
@@ -328,7 +317,7 @@ module.exports = function(app) {
 
 		sess.lastPage = '';;
 
-		if (sess.logado && sess.idUsuario == req.params.usuarioId) {
+		if (sess.logado && (sess.isAdmin || sess.idUsuario == req.params.usuarioId)) {
 			user.getById(req.params.usuarioId, function(rows, fields) {
 				var row = rows[0],
 					config = getConfigBySession(sess);
@@ -420,18 +409,15 @@ module.exports = function(app) {
 			if (rows.length > 0) {
 				var row = rows[0];
 
+				sess.idUsuario = row.Id;
 				sess.user = row.Login;
 				sess.logado = true;
 				sess.isAdmin = (new Buffer(row.IsAdmin, 'binary')[0] == 1);
-				config.idUsuarioLogado = row.Id;
-
-				config.isAdmin = sess.isAdmin;
 			} else {
+				sess.idUsuario = 0;
 				sess.user = '';
 				sess.logado = false;
-
-				config.isAdmin = false;
-				config.idUsuarioLogado = 0;
+				sess.isAdmin = false;
 			}
 
 			res.json({
@@ -441,9 +427,6 @@ module.exports = function(app) {
 	});
 
 	app.get('/logout', function(req, res) {
-		config.isAdmin = false;
-		config.idUsuarioLogado = 0;
-
 		req.session.destroy(function(err) {
 			if (err) {
 				console.log(err);
